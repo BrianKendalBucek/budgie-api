@@ -3,6 +3,7 @@ const createError = require("http-errors");
 const path = require("path");
 const logger = require("morgan");
 const cors = require("cors");
+const PORT = process.env.PORT || 8080;
 
 // add bodyparser
 // cors
@@ -26,6 +27,6 @@ app.use("/", indexRouter);
 // api
 app.use("/api", convertRouter);
 
-app.listen(3001, function () {
-  console.log("express server is running on port 3001");
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
 });
