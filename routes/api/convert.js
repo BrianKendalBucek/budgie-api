@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/convert", async (req, res) => {
   // https://github.com/fawazahmed0/currency-api
-  console.log("Hi");
+  console.log("Hi from convert api :) ");
   console.log(req.query);
   const { to, from, amount } = req.query;
   const codesUrl =

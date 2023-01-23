@@ -1,9 +1,10 @@
+require("dotenv").config();
 const express = require("express");
 const createError = require("http-errors");
 const path = require("path");
 const logger = require("morgan");
 const cors = require("cors");
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8888;
 
 // add bodyparser
 // cors
@@ -24,7 +25,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 
-// api
+// api routing
 app.use("/api", convertRouter);
 
 app.listen(PORT, () => {
