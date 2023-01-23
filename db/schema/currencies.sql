@@ -1,5 +1,0 @@
-DROP TABLE IF EXISTS currencies CASCADE;
-CREATE TABLE currencies (
-  id SERIAL PRIMARY KEY NOT NULL,
-  name TEXT
-);
