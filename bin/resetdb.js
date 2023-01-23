@@ -43,6 +43,9 @@ const runSeedFiles = async () => {
   }
 };
 
+// control flow
+// Run schema?
+// Run seeds?
 const runResetDB = async () => {
   try {
     process.env.DB_HOST &&

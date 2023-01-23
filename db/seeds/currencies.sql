@@ -1,0 +1,1 @@
+INSERT INTO table currencies(name, code) VALUES ($1, $2)

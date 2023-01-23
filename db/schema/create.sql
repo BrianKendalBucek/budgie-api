@@ -12,6 +12,7 @@ CREATE TABLE categories (
 CREATE TABLE currencies (
   id SERIAL PRIMARY KEY NOT NULL,
   name TEXT,
+  code VARCHAR(10),
   date_added TIMESTAMP
 );
 
