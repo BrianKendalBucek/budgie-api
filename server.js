@@ -29,5 +29,5 @@ app.use("/", indexRouter);
 app.use("/api", convertRouter);
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log(`Server listening on port ${PORT}`);
 });

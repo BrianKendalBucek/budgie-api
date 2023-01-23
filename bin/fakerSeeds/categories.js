@@ -1,8 +1,7 @@
 const { faker } = require("@faker-js/faker");
 
-const categories = (createCategories = () => {
+const categories = () => {
   return [faker.commerce.product()];
-});
+};
 
-console.log(categories());
 module.exports = categories;

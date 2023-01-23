@@ -4,8 +4,7 @@ require("dotenv").config();
 // other dependencies
 const fs = require("fs");
 const db = require("../db/connection");
-
-const SEED_LENGTH = 10;
+const prompt = require("prompt-sync")({ sigint: true });
 
 // PG connection setup
 // const connectionString = process.env.DATABASE_URL ||
@@ -24,8 +23,8 @@ const runSchemaFiles = async () => {
   }
 };
 
-const runSeedFiles = async () => {
-  console.log(`-> Loading Seeds ...`);
+const runSeedFiles = async (seedLength = 10) => {
+  console.log(`-> Loading Seeds ...${seedLength}`);
   const schemaFilenames = fs.readdirSync("./db/seeds");
 
   for (const fn of schemaFilenames) {
@@ -34,10 +33,8 @@ const runSeedFiles = async () => {
     const queryParams = require(`../bin/fakerSeeds/${fileName}`);
     console.log(`\t-> Running ${fn}`);
     // loop
-    for (let i = 0; i < SEED_LENGTH; i++) {
-      console.log(i);
+    for (let i = 0; i < seedLength; i++) {
       fakerArray = queryParams(); // create new user arrays
-      console.log(fakerArray);
       await db.query(sql, fakerArray);
     }
   }
@@ -46,16 +43,24 @@ const runSeedFiles = async () => {
 // control flow
 // Run schema?
 // Run seeds?
+// maybe ask how many times?
 const runResetDB = async () => {
   try {
     process.env.DB_HOST &&
       console.log(
         `-> Connecting to PG on ${process.env.DB_HOST} as ${process.env.DB_USER}...`
       );
-
-    await runSchemaFiles();
-    await runSeedFiles();
-    console.log("DONE!");
+    const schema = prompt("Do you want to run Schema? (y/n)");
+    if (schema === "\u0079") {
+      await runSchemaFiles();
+      console.log("DONE Schema");
+    }
+    const seeds = prompt("Do you want to run Seeds? (y/n)");
+    if (seeds === "\u0079") {
+      await runSeedFiles();
+      console.log("DONE Seeds");
+    }
+    console.log("DONE ALL!");
     process.exit();
   } catch (err) {
     console.log(`error: ${err}`);
