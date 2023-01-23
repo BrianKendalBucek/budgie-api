@@ -5,6 +5,8 @@ require("dotenv").config();
 const fs = require("fs");
 const db = require("../db/connection");
 
+const SEED_LENGTH = 10;
+
 // PG connection setup
 // const connectionString = process.env.DATABASE_URL ||
 //   `postgresql://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}?sslmode=disable`;
@@ -28,8 +30,16 @@ const runSeedFiles = async () => {
 
   for (const fn of schemaFilenames) {
     const sql = fs.readFileSync(`./db/seeds/${fn}`, "utf8");
+    const fileName = fn.replace(".sql", "");
+    const queryParams = require(`../bin/fakerSeeds/${fileName}`);
     console.log(`\t-> Running ${fn}`);
-    await db.query(sql);
+    // loop
+    for (let i = 0; i < SEED_LENGTH; i++) {
+      console.log(i);
+      fakerArray = queryParams(); // create new user arrays
+      console.log(fakerArray);
+      await db.query(sql, fakerArray);
+    }
   }
 };
 
@@ -42,6 +52,7 @@ const runResetDB = async () => {
 
     await runSchemaFiles();
     await runSeedFiles();
+    console.log("DONE!");
     process.exit();
   } catch (err) {
     console.log(`error: ${err}`);
