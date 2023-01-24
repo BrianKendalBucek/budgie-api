@@ -40,3 +40,9 @@ note on converting
 - method to convert involves relationship back to usd
 - once done, divide the input currency by that rate
 - send the converted amount back
+
+- notes from kenny
+- User tables needs to have a fk that points to the currencies table
+- support different payment methods STRETCH
+- knex.js as a query builder?
+-
