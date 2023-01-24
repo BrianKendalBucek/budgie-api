@@ -18,6 +18,9 @@
 - I am currently hoping to get the DB tables finalized and populated with fake data (ie fakerjs) in order to start setting up routes that will return proper data to the front end
 - _Note_ resetdb.js could be improved, and current bin folder only populates users and categories tables
 
+### ERD
+![ERD Diagram](https://github.com/BrianKendalBucek/budgie-api/blob/main/public/docs/ERD.png?raw=true)
+
 ### notes from Bryce/Kenny meeting
 
 - Add currency code row to users tables, to be the base currency from which all expenditures converted
