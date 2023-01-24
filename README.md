@@ -18,7 +18,7 @@
 - I am currently hoping to get the DB tables finalized and populated with fake data (ie fakerjs) in order to start setting up routes that will return proper data to the front end
 - _Note_ resetdb.js could be improved, and current bin folder only populates users and categories tables
 
-### notes from Bryce
+### notes from Bryce/Kenny meeting
 
 - Add currency code row to users tables, to be the base currency from which all expenditures converted
 - in currency table put ratio to usd from api request
