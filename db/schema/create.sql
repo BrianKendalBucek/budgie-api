@@ -35,6 +35,7 @@ CREATE TABLE expenditures (
   cost NUMERIC(2) NOT NULL,
   exchange_rate_base NUMERIC(8) NOT NULL,
   cost_in_base NUMERIC, 
+  -- I couldn't get GENERATED ALWAYS to work with my version of psql 9.5, move this calcuation to the back end instead?
   -- GENERATED ALWAYS as (cost * exchange_rate_base) STORED,
   date_paid DATE NOT NULL,
   category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
