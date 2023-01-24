@@ -17,3 +17,6 @@
 - you can navigate to `/api/convert` in your browser to see a `json` of currencies supported with `usd` as the base currency
 - I am currently hoping to get the DB tables finalized and populated with fake data (ie fakerjs) in order to start setting up routes that will return proper data to the front end
 - _Note_ resetdb.js could be improved, and current bin folder only populates users and categories tables
+
+## ERD
+![ERD Diagram](https://github.com/BrianKendalBucek/budgie-api/blob/main/public/docs/ERD.png?raw=true)
