@@ -18,7 +18,7 @@
 - I am currently hoping to get the DB tables finalized and populated with fake data (ie fakerjs) in order to start setting up routes that will return proper data to the front end
 - _Note_ resetdb.js could be improved, and current bin folder only populates users and categories tables
 
-## Jan 25 late night/early morning
+### Jan 25 late night/early morning
 
 - wrote a helped function to randomly generate numbers within the seed length range to allow for auto generation of FK
 - renamed and added seed files both `.sql` and `.js`
