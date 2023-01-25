@@ -1,1 +1,1 @@
--- INSERT INTO  currencies(name, code) VALUES ($1, $2)
+-- INSERT INTO  currencies(name, code) VALUES ($1, $2, $3)
