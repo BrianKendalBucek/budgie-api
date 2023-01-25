@@ -6,11 +6,6 @@ const fs = require("fs");
 const db = require("../db/connection");
 const prompt = require("prompt-sync")({ sigint: true });
 
-// PG connection setup
-// const connectionString = process.env.DATABASE_URL ||
-//   `postgresql://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}?sslmode=disable`;
-// const client = new Client();
-
 // Loads the schema files from db/schema
 const runSchemaFiles = async () => {
   console.log(`-> Loading Schema Files ...`);
@@ -44,7 +39,9 @@ const runSeedFiles = async (seedLength = 10) => {
 // Run schema?
 // Run seeds?
 // maybe ask how many times?
+
 const runResetDB = async () => {
+  db.on("end", () => "Disconnected");
   try {
     process.env.DB_HOST &&
       console.log(

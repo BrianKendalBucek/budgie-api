@@ -6,7 +6,7 @@ const users = () => {
     faker.name.lastName(),
     faker.internet.email(),
     faker.internet.password(),
-    faker.random.numeric(6),
+    +faker.random.numeric(6),
   ];
 };
 
