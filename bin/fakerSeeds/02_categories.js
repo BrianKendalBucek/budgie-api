@@ -2,7 +2,7 @@ const { faker } = require("@faker-js/faker");
 const db = require("../../db/connection");
 
 const categories = async (sql, seedLength) => {
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < seedLength; i++) {
     const params = [
       faker.datatype.number({ min: 1, max: seedLength }),
       faker.commerce.product(),

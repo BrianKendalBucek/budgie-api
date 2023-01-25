@@ -10,7 +10,7 @@ const users = async (sql, seedLength) => {
       faker.name.lastName(),
       faker.internet.email(),
       faker.internet.password(),
-      faker.datatype.number({ min: 1, max: currencyLength }),
+      45,
       faker.datatype.number({ min: 500, max: 4000 }),
     ];
     await db.query(sql, params);
