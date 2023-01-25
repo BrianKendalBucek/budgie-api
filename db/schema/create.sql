@@ -12,7 +12,7 @@ CREATE TABLE currencies (
   name TEXT,
   code VARCHAR(10) NOT NULL,
   date_added DATE,
-  rate_to_usd NUMERIC(2)
+  rate_to_usd NUMERIC(14,7)
 );
 
 CREATE TABLE users (
@@ -30,8 +30,6 @@ CREATE TABLE categories (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL,
   name TEXT NOT NULL
 );
-
-
 
 CREATE TABLE expenditures (
   id SERIAL PRIMARY KEY NOT NULL,
