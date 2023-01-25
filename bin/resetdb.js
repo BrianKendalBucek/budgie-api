@@ -29,7 +29,8 @@ const runSeedFiles = async (seedLength = 10) => {
     console.log(`\t-> Running ${fn}`);
     // loop
     for (let i = 0; i < seedLength; i++) {
-      fakerArray = queryParams(seedLength); // create new user arrays
+      fakerArray = queryParams(seedLength);
+      console.log(fakerArray); // create new user arrays
       await db.query(sql, fakerArray);
     }
   }
