@@ -41,6 +41,6 @@ const createCurrencySeed = () => {
   return output;
 };
 
-// console.log(createCurrencySeed());
+// console.log(createCurrencySeed().length);
 
 module.exports = { randomNumBetween, createCurrencySeed };

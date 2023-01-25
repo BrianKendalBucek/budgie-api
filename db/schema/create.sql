@@ -7,6 +7,13 @@ DROP TRIGGER IF EXISTS trg_populate_base_cost ON expenditures;
 DROP TRIGGER IF EXISTS trg_update_base_cost ON expenditures;
 
 
+CREATE TABLE currencies (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name TEXT,
+  code VARCHAR(10) NOT NULL,
+  date_added DATE,
+  rate_to_usd NUMERIC(2)
+);
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -24,13 +31,7 @@ CREATE TABLE categories (
   name TEXT NOT NULL
 );
 
-CREATE TABLE currencies (
-  id SERIAL PRIMARY KEY NOT NULL,
-  name TEXT,
-  code VARCHAR(10) NOT NULL,
-  date_added DATE,
-  rate_to_usd NUMERIC(2)
-);
+
 
 CREATE TABLE expenditures (
   id SERIAL PRIMARY KEY NOT NULL,
