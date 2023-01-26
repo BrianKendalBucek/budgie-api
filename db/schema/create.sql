@@ -38,10 +38,3 @@ CREATE TABLE expenditures (
   category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
   notes TEXT
 );
-
-CREATE TABLE months (
-  id SERIAL PRIMARY KEY NOT NULL,
-  year INTEGER NOT NULL,
-  month INTEGER NOT NULL,
-  number_of_days INTEGER DEFAULT(30)
-);
