@@ -8,10 +8,18 @@
 const express = require('express');
 const router  = express.Router();
 
-// const expendituresByIdQuery = require
+const userQuery = require('../../db/queries/users');
 
 router.get('/', (req, res) => {
-  res.send(`hello users`);
+  userQuery.getAllUsers()
+    .then(items => {
+      res.json({ items });
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
 });
 
 router.get('/:id', (req, res) => {
