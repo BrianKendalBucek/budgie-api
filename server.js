@@ -12,6 +12,9 @@ const PORT = process.env.PORT || 8888;
 
 const indexRouter = require("./routes/index");
 const convertRouter = require("./routes/api/convert");
+const apiCurrencyRoute = require("./routes/api/curency-api");
+const apiExpendituresRoute = require("./routes/api/expenditures-api");
+const apiUsersRoute = require("./routes/api/users-api");
 
 const app = express();
 
@@ -27,6 +30,9 @@ app.use("/", indexRouter);
 
 // api routing
 app.use("/api", convertRouter);
+app.use("/api/currency", apiCurrencyRoute);
+app.use("/api/expenditures", apiExpendituresRoute);
+app.use("/api/users", apiUsersRoute);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
