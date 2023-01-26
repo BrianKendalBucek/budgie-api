@@ -20,14 +20,17 @@ const getUserById = (id) => {
       u.email,
       u.first_name,
       u.last_name,
-      u.monthly_dudget
-      c.name AS currency_name
-      c.code AS currency_code
+      u.monthly_budget,
+      c.name AS currency_name,
+      c.code AS currency_code,
       c.rate_to_usd AS currency_rate_to_usd
     FROM users u
-    JOIN currency c ON c.id = u.currency_id
+    JOIN currencies c ON c.id = u.currency_id
     WHERE u.id = ${id};
   `)
+    .then(data => {
+      return data.rows;
+    });
 };
 
 module.exports = {

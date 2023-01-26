@@ -23,7 +23,17 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  res.send(`hello user: ${req.params.id}`);
+  const userId = req.params.id;
+  userQuery.getUserById(userId)
+    .then(items => {
+      res.json({ items });
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+        console.log(err)
+    })
 });
 
 module.exports = router;
