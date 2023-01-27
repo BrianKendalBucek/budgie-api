@@ -1,5 +1,3 @@
-// const countryCodes = require("../db/testData/countryCodes.json");
-// const toUSDRates = require("./db/testData/toUSDRates.json");
 const fs = require("fs");
 const path = require("path");
 
@@ -40,7 +38,5 @@ const createCurrencySeed = () => {
   }
   return output;
 };
-
-// console.log(createCurrencySeed());
 
 module.exports = { randomNumBetween, createCurrencySeed };
