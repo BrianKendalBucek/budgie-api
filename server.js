@@ -15,6 +15,7 @@ const convertRouter = require("./routes/api/convert");
 const apiCurrencyRoute = require("./routes/api/curency-api");
 const apiExpendituresRoute = require("./routes/api/expenditures-api");
 const apiUsersRoute = require("./routes/api/users-api");
+const apiCategoriesRoute = require("./routes/api/categories-api");
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use("/api", convertRouter);
 app.use("/api/currency", apiCurrencyRoute);
 app.use("/api/expenditures", apiExpendituresRoute);
 app.use("/api/users", apiUsersRoute);
+app.use("/api/categories", apiCategoriesRoute);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
