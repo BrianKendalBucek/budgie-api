@@ -33,7 +33,7 @@ CREATE TABLE expenditures (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   currency_id INTEGER REFERENCES currencies(id) ON DELETE CASCADE,
   cost NUMERIC(12,2) NOT NULL,
-  exchange_rate_base NUMERIC(12,8) NOT NULL,
+  exchange_rate_base NUMERIC NOT NULL,
   date_paid DATE NOT NULL,
   category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
   notes TEXT
