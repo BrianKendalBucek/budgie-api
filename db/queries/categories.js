@@ -7,6 +7,13 @@ const getAllCategoriesByUser = (userId) => {
   .then(data => data.rows);
 };
 
+const deleteCategoryById = (categoryId) => {
+  return db.query(`
+    DELETE FROM categories WHERE id = ${categoryId};
+  `)
+};
+
 module.exports = {
-  getAllCategoriesByUser
+  getAllCategoriesByUser,
+  deleteCategoryById
 };

@@ -5,6 +5,7 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
+const { response } = require("express");
 const express = require("express");
 const router = express.Router();
 const categoryQueries = require('../../db/queries/categories');
@@ -28,8 +29,14 @@ router.get("/get_categories_by_id/:user_id", (req, res) => {
     });
 });
 
-router.delete("./delete_category_by_id/:id", (req, res) => {
-
+router.delete("/:id", (req, res) => {
+  categoryQueries.deleteCategoryById(req.params.id)
+    .then(() => res.status(204).json({}))
+    .catch( err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
 });
 
 
