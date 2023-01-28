@@ -13,7 +13,16 @@ const deleteCategoryById = (categoryId) => {
   `)
 };
 
+const addCategory = (categoryName, userId) => {
+  console.log('quering')
+  return db.query(`
+    INSERT INTO categories (name, user_id)
+    VALUES ('${categoryName}', ${userId} )
+    RETURNING id;
+  `)
+};
 module.exports = {
   getAllCategoriesByUser,
-  deleteCategoryById
+  deleteCategoryById,
+  addCategory
 };

@@ -39,6 +39,21 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+router.post('/', (req, res) => {
+  const userId = req.body.id;
+  const categoryName = req.body.categoryName
+  console.log(categoryName);
+  console.log(userId);
+
+  categoryQueries.addCategory(categoryName, userId)
+    .then(() => res.status(204).json({}))
+    .catch( err => {
+      res
+      .status(500)
+      .json({ error: err.message });
+    })
+});
+
 
 //TODO: delete this
 router.get("/", (req, res) => {
