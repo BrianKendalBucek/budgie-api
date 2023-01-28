@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 8888;
 
 const indexRouter = require("./routes/index");
 const convertRouter = require("./routes/api/convert");
+const newCat = require("./routes/api/new-cat");
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use("/", indexRouter);
 
 // api routing
 app.use("/api", convertRouter);
+app.use("/api", newCat);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);

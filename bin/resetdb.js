@@ -18,7 +18,7 @@ const runSchemaFiles = async () => {
   }
 };
 
-const runSeedFiles = async (seedLength = 10) => {
+const runSeedFiles = async (seedLength = 100) => {
   console.log(`-> Loading Seeds ...${seedLength}`);
   const schemaFilenames = fs.readdirSync("./db/seeds");
 
