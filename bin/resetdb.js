@@ -18,8 +18,6 @@ const runSchemaFiles = async () => {
   }
 };
 
-// would be better to have each seed file run a separate amount of time, rather than a global seed length
-
 const runSeedFiles = async (seedLength = 10) => {
   console.log(`-> Loading Seeds ...${seedLength}`);
   const schemaFilenames = fs.readdirSync("./db/seeds");
@@ -31,11 +29,7 @@ const runSeedFiles = async (seedLength = 10) => {
     console.log(`\t-> Running ${fn}`);
     await queryParams(sql, seedLength);
 
-    // for (let i = 0; i < seedLength; i++) {
-    //   fakerArray = queryParams(seedLength);
-    //   console.log(fakerArray);
-    //   await db.query(sql, fakerArray);
-    // }
+    //seeding logic moved to individual seed files, *.js
   }
 };
 

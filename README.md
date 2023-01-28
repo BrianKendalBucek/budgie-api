@@ -26,6 +26,13 @@
 - started reading about node-postgres and realized a pool connection might be better
   - unsure how to manage the 'opening' and 'closing' connections?
 
+### Jan 26
+
+- fixed issue where the helper function was accessing a value outside the index range of the currency array
+- still have an issue when running high number of seeds
+- **error: Error: Max -5605456 should be greater than min 0.**
+- wont spend anymore time on this, just rerun the file for now, unless you can easily see a solution, let me know whats up with this? the error number varies
+
 ### ERD
 
 ![ERD Diagram](https://github.com/BrianKendalBucek/budgie-api/blob/main/public/docs/ERD.png?raw=true)
