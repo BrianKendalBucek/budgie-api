@@ -11,15 +11,16 @@ const router = express.Router();
 // const expendituresByIdQuery = require
 
 router.get("/:id", (req, res) => {
-  const id = req.body.id;
+  const id = req.params.id;
+  console.log(id);
   EQueries.getAllExpendituresById(id)
-    .then((item) => {
-      res.status(204).json({ item });
+    .then((expenses) => {
+      res.json({ expenses });
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
     });
-  res.send(`hello expenditures: ${req.params.id}`);
+  // res.send(`hello expenditures: ${req.params.id}`);
 });
 
 module.exports = router;
