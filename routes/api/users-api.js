@@ -5,35 +5,33 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
-const express = require('express');
-const router  = express.Router();
+const express = require("express");
+const router = express.Router();
 
-const userQuery = require('../../db/queries/users');
+const userQuery = require("../../db/queries/users");
 
-router.get('/', (req, res) => {
-  userQuery.getAllUsers()
-    .then(items => {
-      res.json({ items });
+router.get("/", (req, res) => {
+  userQuery
+    .getAllUsers()
+    .then((users) => {
+      res.json({ users });
     })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
     });
 });
 
-router.get('/:id', (req, res) => {
+router.get("/:id", (req, res) => {
   const userId = req.params.id;
-  userQuery.getUserById(userId)
-    .then(items => {
-      res.json({ items });
+  userQuery
+    .getUserById(userId)
+    .then((user) => {
+      res.json({ user });
     })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
-        console.log(err)
-    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+      console.log(err);
+    });
 });
 
 module.exports = router;

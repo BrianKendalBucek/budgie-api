@@ -29,9 +29,9 @@ const getAllExpenditures = (id) => {
 };
 
 const getOneExpenditureById = (id) => {
-  return db
-    .query(`SELECT * FROM expenditures WHERE id=${id}`)
-    .then((data) => data.rows);
+  const sql = `SELECT * FROM expenditures WHERE id=$1;`;
+  const params = [id];
+  return db.query(sql, params).then((data) => data.rows);
 };
 
 const createNewExpenditure = (params) => {
@@ -39,7 +39,18 @@ const createNewExpenditure = (params) => {
   return db.query(sql, params).then((data) => data.rows);
 };
 
+const deleteExpenditureById = (id) => {
+  console.log(id);
+  getOneExpenditureById(id)
+    .then((data) => console.log(data.rows))
+    .catch((err) => console.error(err));
+  const sql = `DELETE FROM expenditures WHERE id=$1`;
+  const params = [id];
+  return db.query(sql, params).then((data) => data);
+};
+
 module.exports = {
+  deleteExpenditureById,
   createNewExpenditure,
   getAllExpenditures,
   getAllExpendituresByUserId,

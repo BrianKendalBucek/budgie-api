@@ -5,14 +5,15 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
-const { response } = require("express");
 const express = require("express");
 const router = express.Router();
 const categoryQueries = require("../../db/queries/categories");
-//To Delete
-router.post("/add_category", (req, res) => {
-  const category_name = req.body.name;
-  const user_id = req.body.user_id;
+
+router.get("/", (req, res) => {
+  categoryQueries
+    .getAllCategories()
+    .then((categories) => res.json({ categories }))
+    .catch((err) => res.status(500).json({ error: err.message }));
 });
 
 router.get("/get_categories_by_id/:user_id", (req, res) => {
@@ -28,7 +29,7 @@ router.get("/get_categories_by_id/:user_id", (req, res) => {
     });
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id/delete", (req, res) => {
   categoryQueries
     .deleteCategoryById(req.params.id)
     .then(() => res.status(204).json({}))
@@ -49,12 +50,6 @@ router.post("/", (req, res) => {
     .catch((err) => {
       res.status(500).json({ error: err.message });
     });
-});
-
-//TODO: delete this
-router.get("/", (req, res) => {
-  console.log("in root");
-  res.send("hello categories");
 });
 
 module.exports = router;

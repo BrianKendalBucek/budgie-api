@@ -40,7 +40,14 @@ router.post("/", (req, res) => {
   const arrayParams = Object.values(params);
 
   EQueries.createNewExpenditure(arrayParams)
-    .then((insert) => res.json({ insert }))
+    .then((inserted) => res.json({ inserted }))
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
+
+router.delete("/:id/delete", (req, res) => {
+  const { id } = req.params;
+  EQueries.deleteExpenditureById(id)
+    .then((item) => res.json(item))
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 module.exports = router;
