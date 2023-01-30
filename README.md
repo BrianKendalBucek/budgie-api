@@ -46,4 +46,5 @@
 
 #### Expenditures
 
+- GET `/api/expenditures/:id` get all expenditures by user ID
 - GET

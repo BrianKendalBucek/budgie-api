@@ -18,11 +18,11 @@ router.get("/", (req, res) => {
 
 router.get("/get_categories_by_id/:user_id", (req, res) => {
   const userId = req.params.user_id;
-  console.log(userId);
+  // console.log(userId);
   categoryQueries
     .getAllCategoriesByUser(userId)
-    .then((items) => {
-      res.json({ items });
+    .then((catByUser) => {
+      res.json({ catByUser });
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
@@ -39,13 +39,10 @@ router.delete("/:id/delete", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const userId = req.body.id;
-  const categoryName = req.body.categoryName;
-  console.log(categoryName);
-  console.log(userId);
+  const { id, categoryName } = req.body;
 
   categoryQueries
-    .addCategory(categoryName, userId)
+    .addCategory(categoryName, id)
     .then(() => res.status(204).json({}))
     .catch((err) => {
       res.status(500).json({ error: err.message });

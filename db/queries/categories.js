@@ -6,27 +6,21 @@ const getAllCategories = () => {
 
 const getAllCategoriesByUser = (userId) => {
   return db
-    .query(
-      `
-    SELECT * FROM categories WHERE user_id = ${userId};
-  `
-    )
+    .query(`SELECT * FROM categories WHERE user_id=${userId};`)
     .then((data) => data.rows);
 };
 
 const deleteCategoryById = (categoryId) => {
-  return db.query(`
-    DELETE FROM categories WHERE id = ${categoryId};
-  `);
+  const sql = `DELETE FROM categories WHERE id=$1;`;
+  const params = [categoryId];
+  return db.query(sql, params);
 };
 
-const addCategory = (categoryName, userId) => {
-  console.log("quering");
-  return db.query(`
-    INSERT INTO categories (name, user_id)
-    VALUES ('${categoryName}', ${userId} )
-    RETURNING id;
-  `);
+const addCategory = (categoryName, id) => {
+  const sql = `INSERT INTO categories (name, user_id)
+  VALUES ($1, $2 ) RETURNING*;`;
+  const params = [categoryName, id];
+  return db.query(sql, params);
 };
 module.exports = {
   getAllCategories,
