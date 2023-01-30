@@ -2,7 +2,7 @@ const db = require("../connection");
 //#FrontendFreshmen
 
 //query to grab all expenses associated with a dude
-const getAllExpendituresById = (id) => {
+const getAllExpendituresByUserId = (id) => {
   return db
     .query(
       `
@@ -24,7 +24,19 @@ const orderExpendituresDate = (id) => {
     });
 };
 
+const getAllExpenditures = (id) => {
+  return db.query(`SELECT * FROM expenditures;`).then((data) => data.rows);
+};
+
+const getOneExpenditureById = (id) => {
+  return db
+    .query(`SELECT * FROM expenditures WHERE id=${id}`)
+    .then((data) => data.rows);
+};
+
 module.exports = {
-  getAllExpendituresById,
+  getAllExpenditures,
+  getAllExpendituresByUserId,
   orderExpendituresDate,
+  getOneExpenditureById,
 };

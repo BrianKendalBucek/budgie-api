@@ -1,5 +1,5 @@
 /*
- * All routes for expendatures Data are defined here
+ * All routes for expenditures Data are defined here
  * Since this file is loaded in server.js into api/items,
  *   these routes are mounted onto /api/expenditures
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
@@ -12,15 +12,16 @@ const router = express.Router();
 
 router.get("/:id", (req, res) => {
   const id = req.params.id;
-  console.log(id);
-  EQueries.getAllExpendituresById(id)
+  EQueries.getAllExpendituresByUserId(id)
     .then((expenses) => {
       res.json({ expenses });
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
     });
-  // res.send(`hello expenditures: ${req.params.id}`);
 });
+
+// set up route to get a single expense
+// router.get("", (req, res) => {});
 
 module.exports = router;
