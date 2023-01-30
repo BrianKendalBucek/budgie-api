@@ -54,7 +54,7 @@ router.post("/", (req, res) => {
 router.delete("/:id/delete", (req, res) => {
   const { id } = req.params;
   EQueries.deleteExpenditureById(id)
-    .then((item) => res.json(item))
+    .then(() => res.json({ delete: "done" }).status(204))
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 module.exports = router;
