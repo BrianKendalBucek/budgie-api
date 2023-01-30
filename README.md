@@ -47,4 +47,24 @@
 #### Expenditures
 
 - GET `/api/expenditures/:id` get all expenditures by user ID
-- GET
+- GET `/api/expenditures/:id/singleExpense` get one single Expense by id
+- POST `/api/expenditures` with payload
+
+```
+{
+  "userId": 1,
+  "currencyId": 45,
+  "cost": 50.00,
+  "exchangeRateBase": 0.008,
+  "datePaid": "2020-10-10",
+  "categoryId": 3,
+  "notes": "This is a cool widget"
+}
+```
+
+- DELETE `/api/expenditures/:id/delete` to delete by expense id
+
+#### Currency
+
+- GET `/api/currency` lists all currencies currently in DB with rate to usd
+- GET `/api/currency/:code` get a specific currency by country code

@@ -18,8 +18,8 @@ router.get("/", (req, res) => {
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 
-router.get("/:id", (req, res) => {
-  const code = req.params.id;
+router.get("/:code", (req, res) => {
+  const { code } = req.params;
   currencyQueries
     .getCurrencyByCountryCode(code)
     .then((currency) => res.json({ currency }))

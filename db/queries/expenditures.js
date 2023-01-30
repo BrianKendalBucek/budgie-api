@@ -39,11 +39,13 @@ const createNewExpenditure = (params) => {
   return db.query(sql, params).then((data) => data.rows);
 };
 
-const deleteExpenditureById = (id) => {
+const deleteExpenditureById = async (id) => {
   console.log(id);
-  getOneExpenditureById(id)
-    .then((data) => console.log(data.rows))
-    .catch((err) => console.error(err));
+  const exist = await getOneExpenditureById(id);
+  console.log(exist.length);
+  if (exist.length === 0) {
+    throw Error("Not found");
+  }
   const sql = `DELETE FROM expenditures WHERE id=$1`;
   const params = [id];
   return db.query(sql, params).then((data) => data);
