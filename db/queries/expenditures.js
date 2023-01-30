@@ -24,4 +24,7 @@ const orderExpendituresDate = (id) => {
     });
 };
 
-(module.exports = getAllExpendituresById), orderExpendituresDate;
+module.exports = {
+  getAllExpendituresById,
+  orderExpendituresDate,
+};
