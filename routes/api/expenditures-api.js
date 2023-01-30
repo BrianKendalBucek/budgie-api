@@ -22,6 +22,25 @@ router.get("/:id", (req, res) => {
 });
 
 // set up route to get a single expense
+// route to add
+// route to delete
+// route to edit
 // router.get("", (req, res) => {});
 
+router.post("/", (req, res) => {
+  const params = ({
+    userId,
+    currencyId,
+    cost,
+    exchangeRateBase,
+    datePaid,
+    categoryId,
+    notes,
+  } = req.body);
+  const arrayParams = Object.values(params);
+
+  EQueries.createNewExpenditure(arrayParams)
+    .then((insert) => res.json({ insert }))
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
 module.exports = router;

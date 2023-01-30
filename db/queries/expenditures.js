@@ -34,7 +34,13 @@ const getOneExpenditureById = (id) => {
     .then((data) => data.rows);
 };
 
+const createNewExpenditure = (params) => {
+  const sql = `INSERT INTO expenditures(user_id, currency_id, cost, exchange_rate_base, date_paid, category_id, notes) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;`;
+  return db.query(sql, params).then((data) => data.rows);
+};
+
 module.exports = {
+  createNewExpenditure,
   getAllExpenditures,
   getAllExpendituresByUserId,
   orderExpendituresDate,
