@@ -6,7 +6,7 @@ const getAllCurrencies = () => {
 
 const getCurrencyByCountryCode = (code) => {
   return db
-    .query(`SELECT * FROM currencies WHERE code=${code}`)
+    .query(`SELECT * FROM currencies WHERE code='${code}';`)
     .then((data) => data.rows);
 };
 
