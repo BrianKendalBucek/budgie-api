@@ -5,61 +5,48 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
-const { response } = require("express");
 const express = require("express");
 const router = express.Router();
-const categoryQueries = require('../../db/queries/categories');
+const categoryQueries = require("../../db/queries/categories");
 
-router.post('/add_category', (req, res) => {
-  const category_name = req.body.name;
-  const user_id = req.body.user_id;
+router.get("/", (req, res) => {
+  categoryQueries
+    .getAllCategories()
+    .then((categories) => res.json({ categories }))
+    .catch((err) => res.status(500).json({ error: err.message }));
 });
 
 router.get("/get_categories_by_id/:user_id", (req, res) => {
   const userId = req.params.user_id;
-  console.log(userId);
-  categoryQueries.getAllCategoriesByUser(userId)
-    .then(items => {
-      res.json({ items })
+  // console.log(userId);
+  categoryQueries
+    .getAllCategoriesByUser(userId)
+    .then((catByUser) => {
+      res.json({ catByUser });
     })
-    .catch( err => {
-      res
-        .status(500)
-        .json( {error: err.message});
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
     });
 });
 
-router.delete("/:id", (req, res) => {
-  categoryQueries.deleteCategoryById(req.params.id)
+router.delete("/:id/delete", (req, res) => {
+  categoryQueries
+    .deleteCategoryById(req.params.id)
     .then(() => res.status(204).json({}))
-    .catch( err => {
-      res
-        .status(500)
-        .json({ error: err.message });
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
     });
 });
 
-router.post('/', (req, res) => {
-  const userId = req.body.id;
-  const categoryName = req.body.categoryName
-  console.log(categoryName);
-  console.log(userId);
+router.post("/", (req, res) => {
+  const { id, categoryName } = req.body;
 
-  categoryQueries.addCategory(categoryName, userId)
+  categoryQueries
+    .addCategory(categoryName, id)
     .then(() => res.status(204).json({}))
-    .catch( err => {
-      res
-      .status(500)
-      .json({ error: err.message });
-    })
-});
-
-
-//TODO: delete this
-router.get("/", (req, res) => {
-  console.log("in root")
-  res.send("hello categories");
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
 });
 
 module.exports = router;
-

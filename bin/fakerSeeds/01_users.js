@@ -3,6 +3,7 @@ const db = require("../../db/connection");
 const { createCurrencySeed } = require("../seedHelpers");
 
 const users = async (sql, seedLength) => {
+  // CURRENCY ID CURRENTLY SET AT CAD, Can be randomly assigned at a later date
   const currencyLength = createCurrencySeed().length;
   for (let i = 0; i < seedLength; i++) {
     const params = [

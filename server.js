@@ -7,12 +7,10 @@ const cors = require("cors");
 const PORT = process.env.PORT || 8888;
 
 // add bodyparser
-// cors
-// proxy goes into the front end, currently set in the backend.. afraid to touch rn lol
 
 const indexRouter = require("./routes/index");
 const convertRouter = require("./routes/api/convert");
-const apiCurrencyRoute = require("./routes/api/curency-api");
+const apiCurrencyRoute = require("./routes/api/currency-api");
 const apiExpendituresRoute = require("./routes/api/expenditures-api");
 const apiUsersRoute = require("./routes/api/users-api");
 const apiCategoriesRoute = require("./routes/api/categories-api");
