@@ -22,6 +22,21 @@ router.get('/', (req, res) => {
     });
 });
 
+router.post("/login", (req, res) => {
+  const {email, password} = req.body;
+  userQuery.get
+  userQuery.getUserById(1)
+    .then(user => {
+      res.json({ ...user });
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+        console.log(err)
+    })
+});
+
 router.get('/:id', (req, res) => {
   const userId = req.params.id;
   userQuery.getUserById(userId)

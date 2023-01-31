@@ -17,6 +17,7 @@ const getAllUsers = () => {
 const getUserById = (id) => {
   return db.query(`
     SELECT
+      u.id,
       u.email,
       u.first_name,
       u.last_name,
@@ -29,7 +30,7 @@ const getUserById = (id) => {
     WHERE u.id = ${id};
   `)
     .then(data => {
-      return data.rows;
+      return data.rows[0];
     });
 };
 
