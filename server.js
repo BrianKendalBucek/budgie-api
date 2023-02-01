@@ -5,6 +5,7 @@ const path = require("path");
 const logger = require("morgan");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
+const session = require("express-session");
 const PORT = process.env.PORT || 8888;
 const KEY = process.env.KEY || "a really bad key";
 
@@ -18,21 +19,29 @@ const apiUsersRoute = require("./routes/api/users-api");
 const apiCategoriesRoute = require("./routes/api/categories-api");
 
 const app = express();
-app.set('trust proxy', 1) 
+app.set("trust proxy", 1);
 // view engine is REACT :)
 
 app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
+app.use(
+  session({
+    secret: "some secret",
+    cookie: { maxAge: 30000 },
+    saveUninitialized: false,
+  })
+);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
-app.use(cookieSession({
-  name: 'session',
-  keys: ["password"],
-  //maxAge: 24 * 60 * 60 * 1000,
-  //user_id: 1
-}));
-
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["password"],
+    //maxAge: 24 * 60 * 60 * 1000,
+    //user_id: 1
+  })
+);
 
 app.use("/", indexRouter);
 
