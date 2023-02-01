@@ -21,7 +21,7 @@ router.get("/get_categories_by_id/:user_id", (req, res) => {
   categoryQueries
     .getAllCategoriesByUser(userId)
     .then((catByUser) => {
-      res.json({ ...catByUser });
+      res.json(catByUser);
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
