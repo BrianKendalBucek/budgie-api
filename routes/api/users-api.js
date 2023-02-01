@@ -21,22 +21,45 @@ router.get("/", (req, res) => {
     });
 });
 
-router.post("/login", (req, res) => {
-  console.log(req.sessionID, req.sessionStore);
+router.post("/login", async (req, res) => {
+  console.log(req.sessionID, req.session);
   const { email, password } = req.body;
-  console.log(email, password);
-  userQuery
-    .getUserById(1)
-    .then((user) => {
-      res.json({ ...user });
-    })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
-      console.log(err);
-    });
+  const user = await userQuery.getUserByEmail(email);
+  if (!user) {
+    res.json({ error: "User not found" });
+    return;
+  }
+  if (email && password) {
+    if (req.session.authenticated) {
+      // res.cookie("id", req.sessionID);
+      res.json(req.session);
+    } else {
+      if (password === user.password) {
+        (req.session.authenticated = true), (req.session.user = { ...user });
+
+        res.json(req.session);
+      } else {
+        res.status(403).json({ error: "wrong password" });
+      }
+    }
+  } else {
+    res.status(403).json({ error: "bad info" });
+  }
+  // console.log(email, password);
+  // userQuery
+  //   .getUserById(1)
+  //   .then((user) => {
+  //     res.json({ ...user });
+  //   })
+  //   .catch((err) => {
+  //     res.status(500).json({ error: err.message });
+  //     console.log(err);
+  //   });
 });
 
 router.get("/:id", (req, res) => {
+  console.log(req.session.authenticated, req.cookies, req.session.user.id);
+
   const userId = req.params.id;
   userQuery
     .getUserById(userId)

@@ -34,7 +34,14 @@ WHERE u.id=$1;`;
   return db.query(sql, params).then((data) => data.rows[0]);
 };
 
+const getUserByEmail = (email) => {
+  const sql = `SELECT * FROM users where email=$1;`;
+  const params = [email];
+
+  return db.query(sql, params).then((data) => data.rows[0] || null);
+};
 module.exports = {
   getAllUsers,
   getUserById,
+  getUserByEmail,
 };
