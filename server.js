@@ -12,7 +12,6 @@ const PORT = process.env.PORT || 8888;
 
 // add bodyparser
 
-const indexRouter = require("./routes/index");
 const convertRouter = require("./routes/api/convert");
 const apiCurrencyRoute = require("./routes/api/currency-api");
 const apiExpendituresRoute = require("./routes/api/expenditures-api");
@@ -54,8 +53,6 @@ app.use(
     secure: false,
   })
 );
-
-app.use("/", indexRouter);
 
 // login/logout
 app.use("/", loginRouter);

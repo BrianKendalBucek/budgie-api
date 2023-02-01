@@ -28,8 +28,8 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
-  req.session.destroy;
-  res.end();
+  req.session = null;
+  res.json({ status: true });
 });
 
 module.exports = router;
