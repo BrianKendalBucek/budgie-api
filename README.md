@@ -48,6 +48,7 @@
 #### Expenditures
 
 - GET `/api/expenditures/:id` get all expenditures by user ID
+  - returns an array of users expenses
 - GET `/api/expenditures/:id/singleExpense` get one single Expense by id
 - POST `/api/expenditures` with payload
 
@@ -64,6 +65,18 @@
 ```
 
 - DELETE `/api/expenditures/:id/delete` to delete by expense id
+  - on failure will return
+  ```
+  {
+  "error": "Not found"
+  }
+  ```
+  - on success will return
+  ```
+  {
+  "delete": "done"
+  }
+  ```
 
 #### Currency
 

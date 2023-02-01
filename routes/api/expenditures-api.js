@@ -21,7 +21,7 @@ router.get("/:id", (req, res) => {
   const id = req.params.id;
   EQueries.getAllExpendituresByUserId(id)
     .then((expenses) => {
-      res.json({ expenses });
+      res.json(expenses);
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
@@ -47,7 +47,7 @@ router.post("/", (req, res) => {
   const arrayParams = Object.values(params);
 
   EQueries.createNewExpenditure(arrayParams)
-    .then((inserted) => res.json({ inserted }).status(204))
+    .then((inserted) => res.json(inserted).status(204))
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 
