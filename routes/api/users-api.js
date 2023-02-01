@@ -11,8 +11,7 @@ const router = express.Router();
 const userQuery = require("../../db/queries/users");
 
 router.get("/", (req, res) => {
-  console.log(req.session.user.id);
-
+  console.log(req.session.user, req.session.authenticated);
   userQuery
     .getAllUsers()
     .then((users) => {
@@ -21,43 +20,6 @@ router.get("/", (req, res) => {
     .catch((err) => {
       res.status(500).json({ error: err.message });
     });
-});
-
-router.post("/login", async (req, res) => {
-  console.log(req.session, req.session.user);
-  const { email, password } = req.body;
-  const user = await userQuery.getUserByEmail(email);
-  if (!user) {
-    res.json({ error: "User not found" });
-    return;
-  }
-  if (email && password) {
-    if (req.session.authenticated) {
-      req.session.user = { ...user };
-      // res.cookie("id", user.id);
-      res.json(req.session.user.id);
-    } else {
-      if (password === user.password) {
-        (req.session.authenticated = true), (req.session.user = { ...user });
-        // res.cookie("id", user.id);
-        res.json(req.session.user.id);
-      } else {
-        res.status(403).json({ error: "wrong password" });
-      }
-    }
-  } else {
-    res.status(403).json({ error: "bad info" });
-  }
-  // console.log(email, password);
-  // userQuery
-  //   .getUserById(1)
-  //   .then((user) => {
-  //     res.json({ ...user });
-  //   })
-  //   .catch((err) => {
-  //     res.status(500).json({ error: err.message });
-  //     console.log(err);
-  //   });
 });
 
 router.get("/:id", (req, res) => {

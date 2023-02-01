@@ -19,6 +19,8 @@ const apiExpendituresRoute = require("./routes/api/expenditures-api");
 const apiUsersRoute = require("./routes/api/users-api");
 const apiCategoriesRoute = require("./routes/api/categories-api");
 
+const loginRouter = require("./routes/login");
+
 const app = express();
 app.set("trust proxy", 1);
 // view engine is REACT :)
@@ -45,7 +47,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(
   cookieSession({
     name: "session",
-    // secret: "some secret",
+    secret: "some secret",
     sameSite: "lax",
     keys: ["This", "is", "a", "test"],
     // maxAge: 24 * 60 * 60 * 1000,
@@ -54,6 +56,11 @@ app.use(
 );
 
 app.use("/", indexRouter);
+
+// login/logout
+app.use("/", loginRouter);
+
+// signup
 
 // api routing
 app.use("/api", convertRouter);
