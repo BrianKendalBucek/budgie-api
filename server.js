@@ -4,9 +4,9 @@ const createError = require("http-errors");
 const path = require("path");
 const logger = require("morgan");
 const cors = require("cors");
-// const cookieSession = require("cookie-session");
-const session = require("express-session");
-const store = new session.MemoryStore();
+const cookieSession = require("cookie-session");
+// const session = require("express-session");
+// const store = new session.MemoryStore();
 const PORT = process.env.PORT || 8888;
 // const KEY = process.env.KEY || "a really bad key";
 
@@ -23,28 +23,35 @@ const app = express();
 app.set("trust proxy", 1);
 // view engine is REACT :)
 
-app.use(cors());
-app.use(logger("dev"));
-app.use(express.json());
 app.use(
-  session({
-    secret: "some secret",
-    cookie: { maxAge: 30000 },
-    saveUninitialized: false,
-    resave: true,
-    store,
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
   })
 );
+app.use(logger("dev"));
+app.use(express.json());
+// app.use(
+//   session({
+//     secret: "some secret",
+//     cookie: { maxAge: 30000 },
+//     saveUninitialized: false,
+//     resave: true,
+//     store,
+//   })
+// );
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
-/* app.use(
+app.use(
   cookieSession({
     name: "session",
-    keys: ["password"],
-    //maxAge: 24 * 60 * 60 * 1000,
-    //user_id: 1
+    // secret: "some secret",
+    sameSite: "lax",
+    keys: ["This", "is", "a", "test"],
+    // maxAge: 24 * 60 * 60 * 1000,
+    secure: false,
   })
-); */
+);
 
 app.use("/", indexRouter);
 

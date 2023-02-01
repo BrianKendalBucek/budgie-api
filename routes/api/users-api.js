@@ -11,6 +11,8 @@ const router = express.Router();
 const userQuery = require("../../db/queries/users");
 
 router.get("/", (req, res) => {
+  console.log(req.session.user.id);
+
   userQuery
     .getAllUsers()
     .then((users) => {
@@ -22,7 +24,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  console.log(req.sessionID, req.session);
+  console.log(req.session, req.session.user);
   const { email, password } = req.body;
   const user = await userQuery.getUserByEmail(email);
   if (!user) {
@@ -31,13 +33,14 @@ router.post("/login", async (req, res) => {
   }
   if (email && password) {
     if (req.session.authenticated) {
-      // res.cookie("id", req.sessionID);
-      res.json(req.session);
+      req.session.user = { ...user };
+      // res.cookie("id", user.id);
+      res.json(req.session.user.id);
     } else {
       if (password === user.password) {
         (req.session.authenticated = true), (req.session.user = { ...user });
-
-        res.json(req.session);
+        // res.cookie("id", user.id);
+        res.json(req.session.user.id);
       } else {
         res.status(403).json({ error: "wrong password" });
       }
@@ -58,8 +61,6 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  console.log(req.session.authenticated, req.cookies, req.session.user.id);
-
   const userId = req.params.id;
   userQuery
     .getUserById(userId)
