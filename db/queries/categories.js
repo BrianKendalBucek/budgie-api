@@ -5,9 +5,9 @@ const getAllCategories = () => {
 };
 
 const getAllCategoriesByUser = (userId) => {
-  return db
-    .query(`SELECT * FROM categories WHERE user_id=${userId};`)
-    .then((data) => data.rows);
+  const sql = `SELECT * FROM categories WHERE user_id=$1`;
+  const params = [userId];
+  return db.query(sql, params).then((data) => data.rows);
 };
 
 const deleteCategoryById = (categoryId) => {
