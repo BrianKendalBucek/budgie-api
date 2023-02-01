@@ -14,7 +14,7 @@ const router = express.Router();
 router.get("/", (req, res) => {
   currencyQueries
     .getAllCurrencies()
-    .then((currencies) => res.json({ currencies }))
+    .then((currencies) => res.json(currencies))
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 
@@ -22,7 +22,7 @@ router.get("/:code", (req, res) => {
   const { code } = req.params;
   currencyQueries
     .getCurrencyByCountryCode(code)
-    .then((currency) => res.json({ currency }))
+    .then((currency) => res.json(currency))
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 

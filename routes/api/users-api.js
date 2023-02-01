@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
   userQuery
     .getAllUsers()
     .then((users) => {
-      res.json({ users });
+      res.json(users);
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
@@ -41,7 +41,7 @@ router.get("/:id", (req, res) => {
   userQuery
     .getUserById(userId)
     .then((user) => {
-      res.json({ user });
+      res.json({ ...user });
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });

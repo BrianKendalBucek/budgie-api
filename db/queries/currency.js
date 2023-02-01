@@ -5,9 +5,9 @@ const getAllCurrencies = () => {
 };
 
 const getCurrencyByCountryCode = (code) => {
-  return db
-    .query(`SELECT * FROM currencies WHERE code='${code}';`)
-    .then((data) => data.rows);
+  const sql = `SELECT * FROM currencies WHERE code=$1;`;
+  const params = [code];
+  return db.query(sql, params).then((data) => data.rows[0]);
 };
 
 module.exports = {
