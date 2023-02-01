@@ -54,6 +54,12 @@ app.use(
   })
 );
 
+// just a logging function for every get request
+app.get("*", (req, res, next) => {
+  console.log("LOGGED IN AS user ID", req.session);
+  next();
+});
+
 // login/logout
 app.use("/", loginRouter);
 

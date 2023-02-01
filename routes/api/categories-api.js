@@ -16,8 +16,9 @@ router.get("/", (req, res) => {
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 
-router.get("/get_categories_by_id/:user_id", (req, res) => {
-  const userId = req.params.user_id;
+router.get("/get_categories_by_id", (req, res) => {
+  const userId = req.session.user;
+  // const userId = req.params.user_id;
   categoryQueries
     .getAllCategoriesByUser(userId)
     .then((catByUser) => {

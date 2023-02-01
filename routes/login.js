@@ -11,12 +11,12 @@ router.post("/login", async (req, res) => {
     return;
   }
   if (email && password) {
-    if (req.session.authenticated) {
-      req.session.user = { ...user };
+    if (req.session.user) {
+      req.session.user = user.id;
       res.status(200).json({ status: true });
     } else {
       if (password === user.password) {
-        (req.session.authenticated = true), (req.session.user = { ...user });
+        req.session.user = user.id;
         res.status(200).json({ status: true });
       } else {
         res.status(403).json({ error: "wrong password" });

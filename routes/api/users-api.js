@@ -11,7 +11,6 @@ const router = express.Router();
 const userQuery = require("../../db/queries/users");
 
 router.get("/", (req, res) => {
-  console.log(req.session.user, req.session.authenticated);
   userQuery
     .getAllUsers()
     .then((users) => {
