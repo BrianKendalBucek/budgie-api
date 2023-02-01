@@ -4,10 +4,11 @@ const createError = require("http-errors");
 const path = require("path");
 const logger = require("morgan");
 const cors = require("cors");
-const cookieSession = require("cookie-session");
+// const cookieSession = require("cookie-session");
 const session = require("express-session");
+const store = new session.MemoryStore();
 const PORT = process.env.PORT || 8888;
-const KEY = process.env.KEY || "a really bad key";
+// const KEY = process.env.KEY || "a really bad key";
 
 // add bodyparser
 
@@ -30,18 +31,20 @@ app.use(
     secret: "some secret",
     cookie: { maxAge: 30000 },
     saveUninitialized: false,
+    resave: true,
+    store,
   })
 );
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
-app.use(
+/* app.use(
   cookieSession({
     name: "session",
     keys: ["password"],
     //maxAge: 24 * 60 * 60 * 1000,
     //user_id: 1
   })
-);
+); */
 
 app.use("/", indexRouter);
 

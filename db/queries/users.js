@@ -29,7 +29,7 @@ const getUserById = (id) => {
   c.rate_to_usd AS currency_rate_to_usd
 FROM users u
 JOIN currencies c ON c.id = u.currency_id
-WHERE u.id = $1;`;
+WHERE u.id=$1;`;
   const params = [id];
   return db.query(sql, params).then((data) => data.rows[0]);
 };

@@ -22,9 +22,9 @@ router.get("/", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
+  console.log(req.sessionID, req.sessionStore);
   const { email, password } = req.body;
   console.log(email, password);
-  userQuery.get;
   userQuery
     .getUserById(1)
     .then((user) => {
