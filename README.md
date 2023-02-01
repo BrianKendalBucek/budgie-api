@@ -33,6 +33,7 @@
 - GET `/api/categories` returns all categories
 - GET `http://localhost:3002/api/categories/get_categories_by_id/:id` returns categories for a specific user
 - DELETE `/api/categories/:id/delete` deletes category by id
+  - assumes user is already logged in as users should only be able to delete categories they own
 - POST `/api/categories` adds a new category
   payload:
 
@@ -47,6 +48,7 @@
 #### Expenditures
 
 - GET `/api/expenditures/:id` get all expenditures by user ID
+  - returns an array of users expenses
 - GET `/api/expenditures/:id/singleExpense` get one single Expense by id
 - POST `/api/expenditures` with payload
 
@@ -63,6 +65,18 @@
 ```
 
 - DELETE `/api/expenditures/:id/delete` to delete by expense id
+  - on failure will return
+  ```
+  {
+  "error": "Not found"
+  }
+  ```
+  - on success will return
+  ```
+  {
+  "delete": "done"
+  }
+  ```
 
 #### Currency
 

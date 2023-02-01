@@ -12,17 +12,16 @@ const categoryQueries = require("../../db/queries/categories");
 router.get("/", (req, res) => {
   categoryQueries
     .getAllCategories()
-    .then((categories) => res.json({ categories }))
+    .then((categories) => res.json(categories))
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 
 router.get("/get_categories_by_id/:user_id", (req, res) => {
   const userId = req.params.user_id;
-  // console.log(userId);
   categoryQueries
     .getAllCategoriesByUser(userId)
     .then((catByUser) => {
-      res.json({ catByUser });
+      res.json(catByUser);
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });

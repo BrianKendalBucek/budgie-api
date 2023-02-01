@@ -14,10 +14,25 @@ router.get("/", (req, res) => {
   userQuery
     .getAllUsers()
     .then((users) => {
-      res.json({ users });
+      res.json(users);
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
+    });
+});
+
+router.post("/login", (req, res) => {
+  const { email, password } = req.body;
+  console.log(email, password);
+  userQuery.get;
+  userQuery
+    .getUserById(1)
+    .then((user) => {
+      res.json({ ...user });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+      console.log(err);
     });
 });
 
@@ -26,7 +41,7 @@ router.get("/:id", (req, res) => {
   userQuery
     .getUserById(userId)
     .then((user) => {
-      res.json({ user });
+      res.json({ ...user });
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
