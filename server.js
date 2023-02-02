@@ -11,6 +11,8 @@ const store = new session.MemoryStore();
 const PORT = process.env.PORT || 8888;
 // const KEY = process.env.KEY || "a really bad key";
 
+const indexRouter = require("./routes/index");
+
 const convertRouter = require("./routes/api/convert");
 const apiCurrencyRoute = require("./routes/api/currency-api");
 const apiExpendituresRoute = require("./routes/api/expenditures-api");
@@ -18,6 +20,8 @@ const apiUsersRoute = require("./routes/api/users-api");
 const apiCategoriesRoute = require("./routes/api/categories-api");
 
 const loginRouter = require("./routes/login");
+
+const authRouter = require("./routes/authenticate");
 
 const app = express();
 app.set("trust proxy", 1);
@@ -62,7 +66,7 @@ app.use(
 // );
 
 //  logging function for every get request
-app.get("*", (req, res, next) => {
+app.use("*", (req, res, next) => {
   console.log(
     "IS THERE A COOKIE",
     req.cookies,
@@ -74,7 +78,13 @@ app.get("*", (req, res, next) => {
   next();
 });
 
-// login/logout
+// basic for dev purposes
+app.use("/", indexRouter);
+
+// send all api routes through auth
+app.use("/api", authRouter);
+
+// specifically for login/logout
 app.use("/", loginRouter);
 
 // signup

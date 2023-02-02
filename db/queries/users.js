@@ -40,7 +40,29 @@ const getUserByEmail = (email) => {
 
   return db.query(sql, params).then((data) => data.rows[0] || null);
 };
+
+const createNewUser = (
+  first_name,
+  last_name,
+  password,
+  currency_id,
+  monthly_budget
+) => {
+  const sql = `INSERT INTO users(first_name, last_name, email, password, currency_id, monthly_budget) VALUES ($1, $2, $3, $4, $5, $6) RETURNING*;`;
+  const params = [first_name, last_name, password, currency_id, monthly_budget];
+
+  return db.query(sql, params).then((data) => data.rows[0]);
+};
+
+const authUser = (id) => {
+  const sql = `SELECT * FROM users WHERE id=$1`;
+  const params = [id];
+
+  return db.query(sql, params).then((data) => data.rows[0] || null);
+};
 module.exports = {
+  createNewUser,
+  authUser,
   getAllUsers,
   getUserById,
   getUserByEmail,
