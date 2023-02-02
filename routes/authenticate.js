@@ -4,24 +4,26 @@ const UQueries = require("../db/queries/users");
 
 router.use("/", async (req, res, next) => {
   // is there a logged in user?
-  // does that password match the db?
   // continue to next api request
   console.log("all api routes go through ME!!!!!!");
 
   if (!req.session.user) {
-    res.status(404).json("Not logged in");
+    res.status(401).json("Not logged in");
     return;
   } else {
-    const id = req.session.user;
-    const user = await UQueries.authUser(id);
-    if (!user) {
-      res.status(404).json("Not logged in");
-    } else {
-      next();
+    try {
+      const id = req.session.user;
+      const user = await UQueries.authUser(id);
+      if (!user) {
+        res.status(401).json("Not logged in");
+      } else {
+        next();
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500);
     }
   }
-
-  // next();
 });
 
 module.exports = router;

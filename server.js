@@ -12,32 +12,34 @@ const PORT = process.env.PORT || 8888;
 // const KEY = process.env.KEY || "a really bad key";
 
 const indexRouter = require("./routes/index");
-
+// api routes go through simple auth
 const convertRouter = require("./routes/api/convert");
 const apiCurrencyRoute = require("./routes/api/currency-api");
 const apiExpendituresRoute = require("./routes/api/expenditures-api");
 const apiUsersRoute = require("./routes/api/users-api");
 const apiCategoriesRoute = require("./routes/api/categories-api");
-
+// login/logout
 const loginRouter = require("./routes/login");
+
+// signUp  TODO
 
 const authRouter = require("./routes/authenticate");
 
+// view engine is REACT :)
 const app = express();
 app.set("trust proxy", 1);
-// view engine is REACT :)
 
+app.use(logger("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "public")));
+app.use(cookieParser());
 app.use(
   cors({
     origin: "http://localhost:3000",
     credentials: true,
   })
 );
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "public")));
-app.use(cookieParser());
 
 app.use(
   session({
@@ -46,6 +48,7 @@ app.use(
       name: "session",
       secure: false,
       secret: "some secret",
+      keys: ["This", "is", "a", "test"],
       sameSite: "lax",
       // maxAge: 24 * 60 * 60 * 1000,
     },
@@ -54,18 +57,22 @@ app.use(
     store,
   })
 );
-// app.use(
-//   cookieSession({
-//     name: "session",
-//     secret: "some secret",
-//     sameSite: "lax",
-//     keys: ["This", "is", "a", "test"],
-//     // maxAge: 24 * 60 * 60 * 1000,
-//     secure: false,
-//   })
-// );
 
-//  logging function for every get request
+/* 
+KEEP THIS FOR REFERENCE
+app.use(
+  cookieSession({
+    name: "session",
+    secret: "some secret",
+    sameSite: "lax",
+    keys: ["This", "is", "a", "test"],
+    // maxAge: 24 * 60 * 60 * 1000,
+    secure: false,
+  })
+);
+ */
+
+//  logging function for every request to test sessions
 app.use("*", (req, res, next) => {
   console.log(
     "IS THERE A COOKIE",
