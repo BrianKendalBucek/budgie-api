@@ -5,6 +5,7 @@ const path = require("path");
 const logger = require("morgan");
 const cors = require("cors");
 // const cookieSession = require("cookie-session");
+const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const store = new session.MemoryStore();
 const PORT = process.env.PORT || 8888;
@@ -32,6 +33,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(cookieParser());
 
 app.use(
   session({

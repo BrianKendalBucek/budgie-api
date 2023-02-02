@@ -29,7 +29,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
-  console.log(req.session, req.sessionID);
+  console.log(req.session, req.cookies, req.sessionID);
   // req.session = null;
   // console.log(req.cookies);
   // req.session.destroy();
@@ -39,7 +39,8 @@ router.post("/logout", (req, res) => {
       if (err) {
         res.status(400).send("Unable to log out");
       } else {
-        res.send("Logout successful");
+        // res.clearCookie
+        res.clearCookie("connect.sid").send("Logout successful");
       }
     });
   } else {
