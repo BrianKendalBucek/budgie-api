@@ -4,9 +4,9 @@ const createError = require("http-errors");
 const path = require("path");
 const logger = require("morgan");
 const cors = require("cors");
-const cookieSession = require("cookie-session");
-// const session = require("express-session");
-// const store = new session.MemoryStore();
+// const cookieSession = require("cookie-session");
+const session = require("express-session");
+const store = new session.MemoryStore();
 const PORT = process.env.PORT || 8888;
 // const KEY = process.env.KEY || "a really bad key";
 
@@ -32,31 +32,37 @@ app.use(
 );
 app.use(logger("dev"));
 app.use(express.json());
-// app.use(
-//   session({
-//     secret: "some secret",
-//     cookie: { maxAge: 30000 },
-//     saveUninitialized: false,
-//     resave: true,
-//     store,
-//   })
-// );
-app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "public")));
 app.use(
-  cookieSession({
-    name: "session",
+  session({
     secret: "some secret",
-    sameSite: "lax",
-    keys: ["This", "is", "a", "test"],
-    // maxAge: 24 * 60 * 60 * 1000,
-    secure: false,
+    cookie: {
+      name: "session",
+      secure: false,
+      secret: "some secret",
+      sameSite: "lax",
+      maxAge: 24 * 60 * 60 * 1000,
+    },
+    saveUninitialized: false,
+    resave: false,
+    store,
   })
 );
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "public")));
+// app.use(
+//   cookieSession({
+//     name: "session",
+//     secret: "some secret",
+//     sameSite: "lax",
+//     keys: ["This", "is", "a", "test"],
+//     // maxAge: 24 * 60 * 60 * 1000,
+//     secure: false,
+//   })
+// );
 
 // just a logging function for every get request
 app.get("*", (req, res, next) => {
-  console.log("LOGGED IN AS user ID", req.session);
+  console.log("LOGGED IN AS", req.session.user, "SESSION ID", req.sessionID);
   next();
 });
 

@@ -29,6 +29,8 @@ router.post("/login", async (req, res) => {
 
 router.post("/logout", (req, res) => {
   req.session = null;
+  console.log(req.cookies);
+  // req.session.destroy();
   res.json({ status: true });
 });
 
