@@ -12,8 +12,9 @@ router.post("/login", async (req, res) => {
   }
   if (email && password) {
     if (req.session.user) {
-      req.session.user = user.id;
-      res.status(200).json({ status: true });
+      //already logged in
+      // req.session.user = user.id;
+      res.status(200).json({ status: "already logged in" });
     } else {
       if (password === user.password) {
         req.session.user = user.id;
@@ -28,10 +29,24 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
-  req.session = null;
-  console.log(req.cookies);
+  console.log(req.session, req.sessionID);
+  // req.session = null;
+  // console.log(req.cookies);
   // req.session.destroy();
-  res.json({ status: true });
+
+  if (req.session.user) {
+    req.session.destroy((err) => {
+      if (err) {
+        res.status(400).send("Unable to log out");
+      } else {
+        res.send("Logout successful");
+      }
+    });
+  } else {
+    res.end("Not logged in");
+  }
+
+  // res.json({ status: true });
 });
 
 module.exports = router;

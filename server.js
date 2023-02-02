@@ -10,8 +10,6 @@ const store = new session.MemoryStore();
 const PORT = process.env.PORT || 8888;
 // const KEY = process.env.KEY || "a really bad key";
 
-// add bodyparser
-
 const convertRouter = require("./routes/api/convert");
 const apiCurrencyRoute = require("./routes/api/currency-api");
 const apiExpendituresRoute = require("./routes/api/expenditures-api");
@@ -32,6 +30,9 @@ app.use(
 );
 app.use(logger("dev"));
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use(
   session({
     secret: "some secret",
@@ -40,15 +41,13 @@ app.use(
       secure: false,
       secret: "some secret",
       sameSite: "lax",
-      maxAge: 24 * 60 * 60 * 1000,
+      // maxAge: 24 * 60 * 60 * 1000,
     },
     saveUninitialized: false,
     resave: false,
     store,
   })
 );
-app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "public")));
 // app.use(
 //   cookieSession({
 //     name: "session",
@@ -60,7 +59,7 @@ app.use(express.static(path.join(__dirname, "public")));
 //   })
 // );
 
-// just a logging function for every get request
+//  logging function for every get request
 app.get("*", (req, res, next) => {
   console.log("LOGGED IN AS", req.session.user, "SESSION ID", req.sessionID);
   next();
