@@ -63,7 +63,14 @@ app.use(
 
 //  logging function for every get request
 app.get("*", (req, res, next) => {
-  console.log("LOGGED IN AS", req.session.user, "SESSION ID", req.sessionID);
+  console.log(
+    "IS THERE A COOKIE",
+    req.cookies,
+    "LOGGED IN AS",
+    req.session.user,
+    "SESSION ID",
+    req.sessionID
+  );
   next();
 });
 
