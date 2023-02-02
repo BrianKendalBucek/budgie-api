@@ -4,6 +4,7 @@ const UQueries = require("../db/queries/users");
 
 router.use("/", async (req, res, next) => {
   // is there a logged in user?
+  // double check the db
   // continue to next api request
   console.log("all api routes go through ME!!!!!!");
 
