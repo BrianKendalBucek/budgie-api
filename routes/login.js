@@ -4,10 +4,11 @@ const UQuery = require("../db/queries/users");
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
+  console.log(email, password);
   try {
     const user = await UQuery.getUserByEmail(email);
     if (!user) {
-      res.json("User not found");
+      res.json({ validated: false, msg: "User Not Found" });
       return;
     }
 
@@ -18,13 +19,17 @@ router.post("/login", async (req, res) => {
       } else {
         if (password === user.password) {
           req.session.user = user.id;
-          res.status(202).json("logged in success");
+          // success
+          res.status(202).json({ validated: true });
         } else {
-          res.status(403).json("wrong password");
+          // wrong password
+          // res.statusMessage = "Wrong Password";
+          res.status(401).json({ validated: false, msg: "Wrong Password" });
         }
       }
     } else {
-      res.status(403).json("bad info");
+      // email and password not truthy
+      res.status(403).json({ validated: false, msg: "Invalid Input" });
     }
   } catch (error) {
     console.log(error);
