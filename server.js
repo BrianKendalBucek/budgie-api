@@ -23,7 +23,7 @@ const loginRouter = require("./routes/login");
 
 // signUp  TODO
 
-const authRouter = require("./routes/authenticate");
+const authAPIRouter = require("./routes/authenticateAPI");
 const authCheckRouter = require("./routes/isAuth");
 
 // view engine is REACT :)
@@ -90,7 +90,7 @@ app.use("*", (req, res, next) => {
 app.use("/", indexRouter);
 
 // send all api routes through auth
-app.use("/api", authRouter);
+app.use("/api", authAPIRouter);
 
 // specifically for login/logout
 app.use("/", loginRouter);
