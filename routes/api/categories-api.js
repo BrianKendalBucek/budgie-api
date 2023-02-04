@@ -18,7 +18,6 @@ router.get("/", (req, res) => {
 
 router.get("/get_categories_by_id", (req, res) => {
   const userId = req.session.user;
-  // const userId = req.params.user_id;
   categoryQueries
     .getAllCategoriesByUser(userId)
     .then((catByUser) => {
@@ -29,9 +28,10 @@ router.get("/get_categories_by_id", (req, res) => {
     });
 });
 
-router.delete("/:id/delete", (req, res) => {
+router.delete("/delete", (req, res) => {
+  const { cat_id } = req.body;
   categoryQueries
-    .deleteCategoryById(req.params.id)
+    .deleteCategoryById(cat_id)
     .then(() => res.status(204).json({}))
     .catch((err) => {
       res.status(500).json({ error: err.message });
@@ -39,10 +39,11 @@ router.delete("/:id/delete", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const { id, categoryName } = req.body;
+  const { categoryName } = req.body;
+  const userId = req.session.user;
 
   categoryQueries
-    .addCategory(categoryName, id)
+    .addCategory(categoryName, userId)
     .then(() => res.status(204).json({}))
     .catch((err) => {
       res.status(500).json({ error: err.message });

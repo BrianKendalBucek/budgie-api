@@ -24,7 +24,7 @@ const loginRouter = require("./routes/login");
 // signUp  TODO
 
 const authAPIRouter = require("./routes/authenticateAPI");
-const authCheckRouter = require("./routes/isAuth");
+const authCheckRouter = require("./routes/authCheck");
 
 // view engine is REACT :)
 const app = express();
