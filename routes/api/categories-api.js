@@ -29,9 +29,9 @@ router.get("/get_categories_by_id", (req, res) => {
 });
 
 router.delete("/delete", (req, res) => {
-  const { cat_id } = req.body;
+  const { catId } = req.body;
   categoryQueries
-    .deleteCategoryById(cat_id)
+    .deleteCategoryById(catId)
     .then(() => res.status(204).json({}))
     .catch((err) => {
       res.status(500).json({ error: err.message });

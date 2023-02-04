@@ -18,7 +18,7 @@ const deleteCategoryById = (categoryId) => {
 
 const addCategory = (categoryName, id) => {
   const sql = `INSERT INTO categories (name, user_id)
-  VALUES ($1, $2 ) RETURNING*;`;
+  VALUES ($1, $2 ) RETURNING *;`;
   const params = [categoryName, id];
   return db.query(sql, params);
 };

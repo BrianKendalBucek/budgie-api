@@ -34,7 +34,7 @@
 - GET `http://localhost:3002/api/categories/get_categories_by_id/` returns categories for a specific user
 - DELETE `/api/categories/delete` deletes category by id
   - assumes user is already logged in as users should only be able to delete categories they own
-  - payload from front end, needs to include cat_id
+  - payload from front end, needs to include catId
 - POST `/api/categories` adds a new category
   payload:
 
@@ -48,14 +48,13 @@
 
 #### Expenditures
 
-- GET `/api/expenditures/:id` get all expenditures by user ID
+- GET `/api/expenditures` get all expenditures by user ID
   - returns an array of users expenses
-- GET `/api/expenditures/:id/singleExpense` get one single Expense by id
+- GET `/api/expenditures/singleExpense` get one single Expense by id, payload must include expenseId
 - POST `/api/expenditures` with payload
 
 ```
 {
-  "userId": 1,
   "currencyId": 45,
   "cost": 50.00,
   "exchangeRateBase": 0.008,
@@ -65,7 +64,8 @@
 }
 ```
 
-- DELETE `/api/expenditures/:id/delete` to delete by expense id
+- DELETE `/api/expenditures/delete` to delete by expense id
+- payload must include expenseId
   - on failure will return
   ```
   {
