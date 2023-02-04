@@ -11,22 +11,12 @@ const router = express.Router();
 const userQuery = require("../../db/queries/users");
 
 router.get("/", (req, res) => {
-  userQuery
-    .getAllUsers()
-    .then((users) => {
-      res.json(users);
-    })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
-    });
-});
-
-router.get("/:id", (req, res) => {
-  const userId = req.params.id;
+  const userId = req.session.user;
   userQuery
     .getUserById(userId)
     .then((user) => {
       res.json({ ...user });
+      // TODO look into return value from SQL -> json
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });

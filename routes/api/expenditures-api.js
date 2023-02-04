@@ -51,7 +51,7 @@ router.post("/", (req, res) => {
     .then((inserted) => res.json(inserted).status(204))
     .catch((err) => res.status(500).json({ error: err.message }));
 });
-
+// TODO: think about response on delete
 router.delete("/delete", (req, res) => {
   const { expenseId } = req.body;
   EQueries.deleteExpenditureById(expenseId)

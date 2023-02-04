@@ -25,8 +25,7 @@
 
 #### Users
 
-- GET `/api/users` returns all users
-- GET `/api/users/:id` returns specific user with passed id
+- GET `/api/users` returns all relevant info for logged in user
 
 #### Categories
 

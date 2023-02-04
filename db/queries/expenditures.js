@@ -29,11 +29,7 @@ const createNewExpenditure = (params) => {
   return db.query(sql, params).then((data) => data.rows[0]);
 };
 
-const deleteExpenditureById = async (id) => {
-  const exist = await getOneExpenditureById(id);
-  if (exist.length === 0) {
-    throw Error("Not found");
-  }
+const deleteExpenditureById = (id) => {
   const sql = `DELETE FROM expenditures WHERE id=$1`;
   const params = [id];
   return db.query(sql, params).then((data) => data);
