@@ -24,6 +24,7 @@ const loginRouter = require("./routes/login");
 // signUp  TODO
 
 const authRouter = require("./routes/authenticate");
+const authCheckRouter = require("./routes/isAuth");
 
 // view engine is REACT :)
 const app = express();
@@ -93,6 +94,7 @@ app.use("/api", authRouter);
 
 // specifically for login/logout
 app.use("/", loginRouter);
+app.use("/", authCheckRouter);
 
 // signup
 

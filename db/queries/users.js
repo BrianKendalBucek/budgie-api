@@ -60,7 +60,14 @@ const authUser = (id) => {
 
   return db.query(sql, params).then((data) => data.rows[0] || null);
 };
+const userLessPassword = (id) => {
+  const sql = `SELECT id, first_name, last_name, email, currency_id, monthly_budget FROM users WHERE id=$1`;
+  const params = [id];
+
+  return db.query(sql, params).then((data) => data.rows[0] || null);
+};
 module.exports = {
+  userLessPassword,
   createNewUser,
   authUser,
   getAllUsers,

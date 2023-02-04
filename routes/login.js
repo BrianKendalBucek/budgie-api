@@ -20,7 +20,13 @@ router.post("/login", async (req, res) => {
         if (password === user.password) {
           req.session.user = user.id;
           // success
-          res.status(202).json({ validated: true });
+          res
+            .status(202)
+            .json({
+              validated: true,
+              firstName: user.first_name,
+              lastName: user.last_name,
+            });
         } else {
           // wrong password
           // res.statusMessage = "Wrong Password";
