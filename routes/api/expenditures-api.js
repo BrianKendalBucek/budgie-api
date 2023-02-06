@@ -10,16 +10,16 @@ const router = express.Router();
 
 // const expendituresByIdQuery = require
 
-router.get("/:id/singleExpense", (req, res) => {
-  const { id } = req.params;
-  EQueries.getOneExpenditureById(id)
+router.get("/singleExpense", (req, res) => {
+  const { expenseId } = req.body;
+  EQueries.getOneExpenditureById(expenseId)
     .then((item) => res.json({ singleExpense: item }))
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 
-router.get("/:id", (req, res) => {
-  const id = req.params.id;
-  EQueries.getAllExpendituresByUserId(id)
+router.get("/", (req, res) => {
+  const userId = req.session.user;
+  EQueries.getAllExpendituresByUserId(userId)
     .then((expenses) => {
       res.json(expenses);
     })
@@ -36,7 +36,6 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
   const params = ({
-    userId,
     currencyId,
     cost,
     exchangeRateBase,
@@ -44,16 +43,18 @@ router.post("/", (req, res) => {
     categoryId,
     notes,
   } = req.body);
+  userId = req.session.user;
   const arrayParams = Object.values(params);
 
-  EQueries.createNewExpenditure(arrayParams)
+  EQueries.createNewExpenditure([userId, ...arrayParams])
+    //TODO: investigate order of .status and .json
     .then((inserted) => res.json(inserted).status(204))
     .catch((err) => res.status(500).json({ error: err.message }));
 });
-
-router.delete("/:id/delete", (req, res) => {
-  const { id } = req.params;
-  EQueries.deleteExpenditureById(id)
+// TODO: think about response on delete
+router.delete("/delete", (req, res) => {
+  const { expenseId } = req.body;
+  EQueries.deleteExpenditureById(expenseId)
     .then(() => res.json({ delete: "done" }).status(204))
     .catch((err) => res.status(500).json({ error: err.message }));
 });
