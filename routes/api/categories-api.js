@@ -28,6 +28,8 @@ router.get("/get_categories_by_id", (req, res) => {
     });
 });
 
+router.get("/total_per_category", (req, res) => {});
+
 router.delete("/delete", (req, res) => {
   const { catId } = req.body;
   categoryQueries
