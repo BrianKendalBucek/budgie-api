@@ -29,12 +29,48 @@ const getUserById = (id) => {
   c.rate_to_usd AS currency_rate_to_usd
 FROM users u
 JOIN currencies c ON c.id = u.currency_id
-WHERE u.id = $1;`;
+WHERE u.id=$1;`;
   const params = [id];
   return db.query(sql, params).then((data) => data.rows[0]);
 };
 
+const getUserByEmail = (email) => {
+  const sql = `SELECT * FROM users where email=$1;`;
+  const params = [email];
+
+  return db.query(sql, params).then((data) => data.rows[0] || null);
+};
+
+const createNewUser = (
+  first_name,
+  last_name,
+  password,
+  currency_id,
+  monthly_budget
+) => {
+  const sql = `INSERT INTO users(first_name, last_name, email, password, currency_id, monthly_budget) VALUES ($1, $2, $3, $4, $5, $6) RETURNING*;`;
+  const params = [first_name, last_name, password, currency_id, monthly_budget];
+
+  return db.query(sql, params).then((data) => data.rows[0]);
+};
+
+const authUser = (id) => {
+  const sql = `SELECT * FROM users WHERE id=$1`;
+  const params = [id];
+
+  return db.query(sql, params).then((data) => data.rows[0] || null);
+};
+const userLessPassword = (id) => {
+  const sql = `SELECT id, first_name, last_name, email, currency_id, monthly_budget FROM users WHERE id=$1`;
+  const params = [id];
+
+  return db.query(sql, params).then((data) => data.rows[0] || null);
+};
 module.exports = {
+  userLessPassword,
+  createNewUser,
+  authUser,
   getAllUsers,
   getUserById,
+  getUserByEmail,
 };
