@@ -18,7 +18,7 @@ const runSchemaFiles = async () => {
   }
 };
 
-const runSeedFiles = async (seedLength = 10) => {
+const runRandomSeedFiles = async (seedLength = 10) => {
   console.log(`-> Loading Seeds ...${seedLength}`);
   const schemaFilenames = fs.readdirSync("./db/seeds");
 
@@ -32,6 +32,10 @@ const runSeedFiles = async (seedLength = 10) => {
     //seeding logic moved to individual seed files, *.js
   }
 };
+
+const runTestSeedFiles = async () => {
+  console.log('running test seeds')
+}
 
 // control flow
 // Run schema?
@@ -50,10 +54,16 @@ const runResetDB = async () => {
       await runSchemaFiles();
       console.log("DONE Schema");
     }
-    const seeds = prompt("Do you want to run Seeds? (y/n)");
-    if (seeds === "\u0079") {
-      await runSeedFiles();
+    const randomSeeds = prompt("Do you want to run random Seeds? (y/n)");
+    if (ramdpSeeds === "\u0079") {
+      await runRandomSeedFiles();
       console.log("DONE Seeds");
+    } else {
+      const testSeeds = prompt("Do you want to run constant test Seeds? (y/n)");
+      if (ramdpSeeds === "\u0079") {
+        await runTestSeedFiles();
+        console.log("DONE Seeds");
+      }
     }
     console.log("DONE ALL!");
     process.exit();
