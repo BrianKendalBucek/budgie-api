@@ -22,7 +22,14 @@ const addCategory = (categoryName, id) => {
   const params = [categoryName, id];
   return db.query(sql, params);
 };
+
+const totalPerCategory = (id) => {
+  const sql = `SELECT c.name, SUM(e.cost) AS total FROM expenditures e JOIN categories c ON category_id = c.id WHERE e.user_id=$1 GROUP BY c.name, c.id;`;
+  const params = [id];
+  return db.query(sql, params).then((data) => data.rows || null);
+};
 module.exports = {
+  totalPerCategory,
   getAllCategories,
   getAllCategoriesByUser,
   deleteCategoryById,

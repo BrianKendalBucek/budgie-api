@@ -28,7 +28,17 @@ router.get("/get_categories_by_id", (req, res) => {
     });
 });
 
-router.get("/total_per_category", (req, res) => {});
+router.get("/total_per_category", (req, res) => {
+  const userId = req.session.user;
+  categoryQueries
+    .totalPerCategory(userId)
+    .then((totalPerCat) => {
+      res.json(totalPerCat);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
 
 router.delete("/delete", (req, res) => {
   const { catId } = req.body;
