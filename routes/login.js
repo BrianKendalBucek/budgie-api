@@ -6,7 +6,7 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   console.log(email, password);
   try {
-    const user = await UQuery.getUserByEmail(email);
+    const user = await UQuery.getUserByEmail(email.trim());
     if (!user) {
       res.json({ validated: false, msg: "User Not Found" });
       return;
