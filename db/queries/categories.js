@@ -33,10 +33,11 @@ const getTotalPerCategory = (userId) => {
  WHERE e.user_id = 1 AND e.date_paid > now() - interval '30 day'
  GROUP BY c.id;`;
  const params = [userId];
- return db.query(sql, params);
+ return db.query(sql, params).then((data) => data.rows || null);
 };
 
 module.exports = {
+  totalPerCategory,
   getAllCategories,
   getAllCategoriesByUser,
   deleteCategoryById,
