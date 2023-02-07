@@ -48,6 +48,8 @@ const getTotalPerDay = (userId) => {
   FROM expenditures
   WHERE user_id = $1
   GROUP BY date_paid;`
+  const params = [userId];
+  return db.query(sql, params).then((data) => data.rows);
 };
 
 module.exports = {
