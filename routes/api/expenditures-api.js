@@ -19,7 +19,7 @@ router.get("/singleExpense", (req, res) => {
 
 router.get("/", (req, res) => {
   const userId = req.session.user;
-  EQueries.getAllExpendituresByUserId(userId)
+  EQueries.getAllExpendituresByUserIdJoinCurrencies(userId)
     .then((expenses) => {
       res.json(expenses);
     })
