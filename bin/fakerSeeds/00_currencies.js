@@ -2,7 +2,7 @@ const { faker } = require("@faker-js/faker");
 const db = require("../../db/connection");
 const { createCurrencySeed } = require("../seedHelpers");
 
-const currencies = async (sql, seedLength) => {
+const currencies = async (random, sql, seedLength) => {
   const seed = createCurrencySeed();
   const date = new Date();
   for (let i = 0; i < seed.length; i++) {
