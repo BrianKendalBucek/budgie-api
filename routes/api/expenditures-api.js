@@ -51,6 +51,18 @@ router.post("/", (req, res) => {
     .then((inserted) => res.json(inserted).status(204))
     .catch((err) => res.status(500).json({ error: err.message }));
 });
+
+router.get("/totals_per_day", (req, res) => {
+  const userId = req.session.user;
+  EQueries.getTotalPerDay(userId)
+  .then((totals) => {
+    res.json(totals)
+  })
+  .catch((err) => {
+    res.status(500).json({ error: err.message });
+  });
+});
+
 // TODO: think about response on delete
 router.delete("/delete", (req, res) => {
   const { expenseId } = req.body;

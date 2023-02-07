@@ -41,6 +41,15 @@ const deleteExpenditureById = (id) => {
   return db.query(sql, params).then((data) => data);
 };
 
+const getTotalPerDay = (userId) => {
+  const sql = `SELECT
+  SUM(cost * exchange_rate_base) AS total,
+  date_paid
+  FROM expenditures
+  WHERE user_id = $1
+  GROUP BY date_paid;`
+};
+
 module.exports = {
   getAllExpendituresByUserIdJoinCurrencies,
   deleteExpenditureById,
@@ -49,4 +58,5 @@ module.exports = {
   getAllExpendituresByUserId,
   orderExpendituresDate,
   getOneExpenditureById,
+  getTotalPerDay
 };

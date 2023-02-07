@@ -39,6 +39,7 @@ router.get("/total_per_category", (req, res) => {
   });
 });
 
+
 router.delete("/delete", (req, res) => {
   const { catId } = req.body;
   categoryQueries
