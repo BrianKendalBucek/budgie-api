@@ -37,7 +37,7 @@ const getTotalPerCategory = (userId) => {
 };
 
 module.exports = {
-  totalPerCategory,
+  getTotalPerCategory,
   getAllCategories,
   getAllCategoriesByUser,
   deleteCategoryById,
