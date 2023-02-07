@@ -23,15 +23,24 @@ const addCategory = (categoryName, id) => {
   return db.query(sql, params);
 };
 
-const totalPerCategory = (id) => {
-  const sql = `SELECT c.name, SUM(e.cost) AS total FROM expenditures e JOIN categories c ON category_id = c.id WHERE e.user_id=$1 GROUP BY c.name, c.id;`;
-  const params = [id];
-  return db.query(sql, params).then((data) => data.rows || null);
+const getTotalPerCategory = (userId) => {
+  const sql = ` SELECT 
+  c.id,
+  c.name,
+ SUM(e.cost * e.exchange_rate_base) AS total
+ FROM expenditures e JOIN categories c
+ ON e.category_id = c.id
+ WHERE e.user_id = 1 AND e.date_paid > now() - interval '30 day'
+ GROUP BY c.id;`;
+ const params = [userId];
+ return db.query(sql, params).then((data) => data.rows || null);
 };
+
 module.exports = {
   totalPerCategory,
   getAllCategories,
   getAllCategoriesByUser,
   deleteCategoryById,
   addCategory,
+  getTotalPerCategory
 };
