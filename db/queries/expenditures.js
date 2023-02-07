@@ -18,6 +18,12 @@ const getAllExpenditures = () => {
   return db.query(`SELECT * FROM expenditures;`).then((data) => data.rows);
 };
 
+const getAllExpendituresByUserIdJoinCurrencies = (id) => {
+  const sql = `SELECT * FROM expenditures e JOIN currencies c ON e.currency_id=c.id WHERE user_id=$1;`;
+  const params = [id];
+  return db.query(sql, params).then((data) => data.rows);
+};
+
 const getOneExpenditureById = (id) => {
   const sql = `SELECT * FROM expenditures WHERE id=$1;`;
   const params = [id];
@@ -36,6 +42,7 @@ const deleteExpenditureById = (id) => {
 };
 
 module.exports = {
+  getAllExpendituresByUserIdJoinCurrencies,
   deleteExpenditureById,
   createNewExpenditure,
   getAllExpenditures,
