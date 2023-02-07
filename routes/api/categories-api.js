@@ -39,6 +39,11 @@ router.get("/total_per_category", (req, res) => {
   });
 });
 
+router.get("totals_per_day", (req, res) => {
+  const userId = req.session.user;
+  
+});
+
 router.delete("/delete", (req, res) => {
   const { catId } = req.body;
   categoryQueries
