@@ -18,16 +18,16 @@ const runSchemaFiles = async () => {
   }
 };
 
-const runSeedFiles = async (seedLength = 10) => {
+const runSeedFiles = async (random, seedLength = 10) => {
   console.log(`-> Loading Seeds ...${seedLength}`);
-  const schemaFilenames = fs.readdirSync("./db/seeds");
+  const seedFilenames = fs.readdirSync("./db/seeds");
 
-  for (const fn of schemaFilenames) {
+  for (const fn of seedFilenames) {
     const sql = fs.readFileSync(`./db/seeds/${fn}`, "utf8");
     const fileName = fn.replace(".sql", "");
     const queryParams = require(`../bin/fakerSeeds/${fileName}`);
     console.log(`\t-> Running ${fn}`);
-    await queryParams(sql, seedLength);
+    await queryParams(random, sql, seedLength);
 
     //seeding logic moved to individual seed files, *.js
   }
@@ -47,13 +47,19 @@ const runResetDB = async () => {
       );
     const schema = prompt("Do you want to run Schema? (y/n)");
     if (schema === "\u0079") {
-      await runSchemaFiles();
+      await runSchemaFiles(true);
       console.log("DONE Schema");
     }
-    const seeds = prompt("Do you want to run Seeds? (y/n)");
-    if (seeds === "\u0079") {
-      await runSeedFiles();
+    const randomSeeds = prompt("Do you want to run random Seeds? (y/n)");
+    if (randomSeeds === "\u0079") {
+      await runSeedFiles(true);
       console.log("DONE Seeds");
+    } else {
+      const testSeeds = prompt("Do you want to run constant test Seeds? (y/n)");
+      if (testSeeds === "\u0079") {
+        await runSeedFiles(false);
+        console.log("DONE Seeds");
+      }
     }
     console.log("DONE ALL!");
     process.exit();
