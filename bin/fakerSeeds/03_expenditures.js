@@ -21,7 +21,7 @@ const expenditures = async (random, sql, seedLength) => {
         currencyID + 1,
         faker.datatype.float({ min: 2, max: 2000, precision: 0.01 }),
         calcRate,
-        faker.date.between(faker.date.past(10), faker.date.recent()),
+        faker.date.recent(),
         faker.datatype.number({ min: 1, max: seedLength }),
         faker.commerce.productName(),
       ];
@@ -29,16 +29,16 @@ const expenditures = async (random, sql, seedLength) => {
   }
 } else {
   params = [
-    [1, 70, 1509.64, 8.402993, faker.date.between(faker.date.past(10), faker.date.recent()), 1, "hot wheels"],
-    [1, 94, 96.27, 0.603959, faker.date.between(faker.date.past(10), faker.date.recent()), 1, "my little pony area rug"],
-    [1, 11, 81.96, 376.54999, faker.date.between(faker.date.past(10), faker.date.recent()), 2, "twin city radler"],
-    [2, 70, 1509.64, 8.402993, faker.date.between(faker.date.past(10), faker.date.recent()), 4, "black hoodie"],
-    [2, 94, 96.27, 0.603959, faker.date.between(faker.date.past(10), faker.date.recent()), 4, "grey hoodie"],
-    [2, 11, 81.96, 376.54999, faker.date.between(faker.date.past(10), faker.date.recent()), 5, "coding hat"],
-    [3, 209, 1846.65, 1.030769, faker.date.between(faker.date.past(10), faker.date.recent()), 6, "beach towels"],
-    [3, 76, 152.7, 1.030769, faker.date.between(faker.date.past(10), faker.date.recent()), 6, "tequila"],
-    [3, 202, 970.5, 1.030769, faker.date.between(faker.date.past(10), faker.date.recent()), 6, "sunscreen"],
-    [3, 142, 1.1, 1138.97871, faker.date.between(faker.date.past(10), faker.date.recent()), 6, "fruit plate"]
+    [1, 70, 15.64, 8.402993, faker.date.recent(), 1, "hot wheels"],
+    [1, 94, 96.27, 0.603959, faker.date.recent(), 1, "my little pony area rug"],
+    [1, 11, 0.2, 376.54999, faker.date.recent(), 2, "twin city radler"],
+    [2, 70, 9.64, 8.402993, faker.date.recent(), 4, "black hoodie"],
+    [2, 94, 96.27, 0.603959, faker.date.recent(), 4, "grey hoodie"],
+    [2, 11, 1.96, 376.54999, faker.date.recent(), 5, "coding hat"],
+    [3, 209, 1846.65, 1.030769, faker.date.recent(), 6, "beach towels"],
+    [3, 76, 152.7, 1.030769, faker.date.recent(), 6, "tequila"],
+    [3, 202, 970.5, 1.030769, faker.date.recent(), 6, "sunscreen"],
+    [3, 142, 0.5, 1138.97871, faker.date.recent(), 6, "fruit plate"]
   ];
   for (let param of params) {
     await db.query(sql, param);
