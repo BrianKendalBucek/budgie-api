@@ -15,7 +15,7 @@ const expenditures = async (random, sql, seedLength) => {
         max: currencyLength - 1,
       });
       const rRate = rates[currencyID].rateToUsd;
-      const calcRate = Math.round(rRate * (1 / cadRate) * 1e6) / 1e6;
+      const calcRate = Math.round((1 / rRate * (1 / cadRate) * 1e6)) / 1e6;
 
       const params = [
         faker.datatype.number({ min: 1, max: seedLength }),
@@ -39,8 +39,40 @@ const expenditures = async (random, sql, seedLength) => {
     [4, 209, 1846.65, 1.030769, faker.date.recent(), 11, "beach towels"],
     [4, 76, 152.7, 1.030769, faker.date.recent(), 11, "tequila"],
     [4, 202, 970.5, 1.030769, faker.date.recent(), 11, "sunscreen"],
-    [4, 142, 0.5, 1138.97871, faker.date.recent(), 11, "fruit plate"]
-  ];
+    [4, 142, 0.5, 1138.97871, faker.date.recent(), 11, "fruit plate"],
+  ]
+
+  //Make realistic demo data for 'matt' user:
+  // Matt has transport rent(7), groceries(8), utilities(9), transport(10) as expenses
+  // matt has a budget of 2500 CAD
+  const thaiRate = rates[219].rateToUsd;
+  const thaiRateToCad = Math.round((1 / thaiRate * (1/ cadRate) * 1e6)) / 1e6;
+
+  params.push([3, 220, 33000, thaiRateToCad, '2023-02-01', 7, 'rent']);
+  params.push([3, 220, 2500, thaiRateToCad, '2023-02-04', 9, 'elec']);
+  params.push([3, 220, 3000, thaiRateToCad, '2023-02-05', 9, 'internet/phone-bundle']);
+  params.push([3, 220, 1000, thaiRateToCad, '2023-02-02', 10, 'transit pass']);
+  params.push([3, 220, 500, thaiRateToCad, '2023-02-07', 10, 'fuel']);
+  params.push([3, 220, 800, thaiRateToCad, '2023-01-15', 10, 'fuel']);
+  params.push([3, 220, 700, thaiRateToCad, '2023-01-20', 10, 'fuel']);
+  params.push([3, 220, 1500, thaiRateToCad, '2023-01-24', 10, 'fuel']);
+
+  for (let i = 30; i >= 0; i -= 2) {
+    let costInThai = 100 + Math.floor(Math.random() * 4900);
+    let date = moment().subtract(i, 'days').format('YYYY-MM-D');
+    console.log(date);
+    let param = [
+      3,
+      220,
+      costInThai,
+      thaiRateToCad,
+      date,
+      8,
+      'misc food expense'
+    ];
+    params.push(param);
+  }
+
   for (let param of params) {
     await db.query(sql, param);
   }

@@ -21,10 +21,10 @@ const categories = async (random, sql, seedLength) => {
     [3, 'rent'],
     [3, 'groceries'],
     [3, 'utilities'],
-    [3, 'transport']
+    [3, 'transport'],
     [4, 'tropical paradise things']
   ];
-  
+
   for (let param of params) {
     await db.query(sql, param);
   }
