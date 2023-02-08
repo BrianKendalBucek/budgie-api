@@ -1,6 +1,7 @@
 const { faker } = require("@faker-js/faker");
 const { createCurrencySeed } = require("../seedHelpers");
 const db = require("../../db/connection");
+const moment = require('moment');
 
 const expenditures = async (random, sql, seedLength) => {
   const currencyLength = createCurrencySeed().length;
@@ -35,10 +36,10 @@ const expenditures = async (random, sql, seedLength) => {
     [2, 70, 9.64, 8.402993, faker.date.recent(), 4, "black hoodie"],
     [2, 94, 96.27, 0.603959, faker.date.recent(), 4, "grey hoodie"],
     [2, 11, 1.96, 376.54999, faker.date.recent(), 5, "coding hat"],
-    [3, 209, 1846.65, 1.030769, faker.date.recent(), 6, "beach towels"],
-    [3, 76, 152.7, 1.030769, faker.date.recent(), 6, "tequila"],
-    [3, 202, 970.5, 1.030769, faker.date.recent(), 6, "sunscreen"],
-    [3, 142, 0.5, 1138.97871, faker.date.recent(), 6, "fruit plate"]
+    [4, 209, 1846.65, 1.030769, faker.date.recent(), 11, "beach towels"],
+    [4, 76, 152.7, 1.030769, faker.date.recent(), 11, "tequila"],
+    [4, 202, 970.5, 1.030769, faker.date.recent(), 11, "sunscreen"],
+    [4, 142, 0.5, 1138.97871, faker.date.recent(), 11, "fruit plate"]
   ];
   for (let param of params) {
     await db.query(sql, param);
