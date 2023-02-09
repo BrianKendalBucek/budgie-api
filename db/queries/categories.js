@@ -5,7 +5,7 @@ const getAllCategories = () => {
 };
 
 const getAllCategoriesByUser = (userId) => {
-  const sql = `SELECT * FROM categories WHERE user_id=$1;`;
+  const sql = `SELECT * FROM categories WHERE user_id=$1 AND is_deleted = false;`;
   const params = [userId];
   return db.query(sql, params).then((data) => data.rows);
 };
