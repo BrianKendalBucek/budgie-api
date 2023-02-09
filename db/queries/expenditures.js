@@ -19,7 +19,7 @@ const getAllExpenditures = () => {
 };
 
 const getAllExpendituresByUserIdJoinCurrencies = (id) => {
-  const sql = `SELECT e.id as ex_id, e.user_id, e.currency_id as paid_in_curr_id, e.cost, e.exchange_rate_base, e.date_paid, e.category_id, e.notes, c.id as curr_id, c.name as curr_name, c.code as code, c.rate_to_usd  FROM expenditures e JOIN currencies c ON e.currency_id=c.id WHERE user_id=$1;`;
+  const sql = `SELECT e.id as ex_id, e.user_id, e.currency_id as paid_in_curr_id, e.cost, e.exchange_rate_base, TO_CHAR(e.date_paid :: DATE, 'yyyy/mm/dd') as date_paid, e.category_id, e.notes, c.id as curr_id, c.name as curr_name, c.code as code, c.rate_to_usd  FROM expenditures e JOIN currencies c ON e.currency_id=c.id WHERE user_id=$1;`;
   const params = [id];
   return db.query(sql, params).then((data) => data.rows);
 };
@@ -47,7 +47,7 @@ const getTotalPerDay = (userId) => {
   date_paid
   FROM expenditures
   WHERE user_id = $1
-  GROUP BY date_paid;`
+  GROUP BY date_paid;`;
   const params = [userId];
   return db.query(sql, params).then((data) => data.rows);
 };
@@ -60,5 +60,5 @@ module.exports = {
   getAllExpendituresByUserId,
   orderExpendituresDate,
   getOneExpenditureById,
-  getTotalPerDay
+  getTotalPerDay,
 };
