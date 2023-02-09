@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 8888;
 
 const indexRouter = require("./routes/index");
 // api routes go through simple auth
-const convertRouter = require("./routes/api/convert");
+const convertRoute = require("./routes/convert");
 const apiCurrencyRoute = require("./routes/api/currency-api");
 const apiExpendituresRoute = require("./routes/api/expenditures-api");
 const apiUsersRoute = require("./routes/api/users-api");
@@ -99,11 +99,14 @@ app.use("/", authCheckRouter);
 // signup
 
 // api routing
-app.use("/api", convertRouter);
+// app.use("/api", convertRouter);
 app.use("/api/currency", apiCurrencyRoute);
 app.use("/api/expenditures", apiExpendituresRoute);
 app.use("/api/users", apiUsersRoute);
 app.use("/api/categories", apiCategoriesRoute);
+
+// to refresh rate data
+app.use("/convert", convertRoute);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
