@@ -32,7 +32,7 @@ const getOneExpenditureById = (id) => {
 };
 
 const createNewExpenditure = (currency_id, cost, date_paid, categoryId, notes, userId) => {
-  return db.query(`SELECT user_c.rate_to_usd * ( 1 / expense_c.rate_to_usd) AS exchange_rate_base 
+  return db.query(`SELECT TRUNC(user_c.rate_to_usd * ( 1 / expense_c.rate_to_usd), 6) AS exchange_rate_base 
                       FROM users u 
                         JOIN currencies user_c ON u.id = $1 AND u.currency_id = user_c.id 
                         JOIN currencies expense_c ON expense_c.id = $2;`, [userId, currency_id])
@@ -53,10 +53,23 @@ const deleteExpenditureById = (id) => {
 const getTotalPerDay = (userId) => {
   const sql = `SELECT
   SUM(cost * exchange_rate_base) AS total,
-  date_paid
+  date_paid,
+  TO_CHAR(date_paid :: DATE, 'yyyy/mm/dd') as date_paid_nice
   FROM expenditures
   WHERE user_id = $1
   GROUP BY date_paid;`;
+  const params = [userId];
+  return db.query(sql, params).then((data) => data.rows);
+};
+
+
+const getTotalPerMonth = (userId) => {
+  const sql = `SELECT
+  SUM(cost * exchange_rate_base) AS total,
+  TO_CHAR(DATE_TRUNC('month', date_paid) :: DATE, 'yyyy/mm/dd') AS month
+  FROM expenditures
+  WHERE user_id = $1
+  GROUP BY DATE_TRUNC('month', date_paid);`;
   const params = [userId];
   return db.query(sql, params).then((data) => data.rows);
 };
@@ -71,5 +84,6 @@ module.exports = {
   orderExpendituresDate,
   getOneExpenditureById,
   getTotalPerDay,
+  getTotalPerMonth
 };
 

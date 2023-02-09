@@ -59,6 +59,17 @@ router.get("/totals_per_day", (req, res) => {
     });
 });
 
+router.get("/totals_per_month", (req, res) => {
+  const userId = req.session.user;
+  EQueries.getTotalPerMonth(userId)
+    .then((totals) => {
+      res.json(totals);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
 // TODO: think about response on delete
 router.delete("/delete", (req, res) => {
   const { expenseId } = req.body;
