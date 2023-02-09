@@ -70,14 +70,14 @@ const getBudgetPercentage = (userId) => {
                       EXTRACT(MONTH FROM NOW()) as month,
                       u.monthly_budget as budget,
                       SUM(e.cost * e.exchange_rate_base) AS total,
-                      TRUNC(SUM(e.cost * e.exchange_rate_base) / u.monthly_budget, 6) as percentage_spent
+                      TRUNC((SUM(e.cost * e.exchange_rate_base) / u.monthly_budget) * 100) as percentage_spent
                 FROM users u
                 JOIN expenditures e
                 ON u.id = $1 AND u.id = e.user_id AND 
                       EXTRACT(MONTH FROM e.date_paid) = EXTRACT(MONTH FROM NOW()) AND  
                       EXTRACT(YEAR FROM e.date_paid) = EXTRACT(YEAR FROM NOW())
                 GROUP BY u.id, u.monthly_budget;`
-  return db.query(sql, [userId]).then((data) => data.rows);
+  return db.query(sql, [userId]).then((data) => data.rows[0]);
                     
 }
 
