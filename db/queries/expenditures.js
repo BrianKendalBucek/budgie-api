@@ -38,7 +38,6 @@ const createNewExpenditure = (currency_id, cost, date_paid, categoryId, notes, u
                         JOIN currencies expense_c ON expense_c.id = $2;`, [userId, currency_id])
     .then((data) => {
       exchange_rate_base = data.rows[0].exchange_rate_base
-      console.log(exchange_rate_base);
       const sql = `INSERT INTO expenditures(user_id, currency_id, cost, exchange_rate_base, date_paid, category_id, notes) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;`
       params = [ userId, currency_id, cost, exchange_rate_base, date_paid, categoryId, notes ];
       db.query(sql, params).then((data) => {data.rows[0]});
