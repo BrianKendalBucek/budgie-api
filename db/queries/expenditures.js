@@ -102,10 +102,7 @@ module.exports = {
   orderExpendituresDate,
   getOneExpenditureById,
   getTotalPerDay,
-<<<<<<< HEAD
+  getTotalPerMonth,
   getBudgetPercentage
-=======
-  getTotalPerMonth
->>>>>>> main
 };
 
