@@ -10,7 +10,14 @@ const getCurrencyByCountryCode = (code) => {
   return db.query(sql, params).then((data) => data.rows[0]);
 };
 
+const getCurrencyByCurrencyId = (id) => {
+  const sql = `SELECT * FROM currencies WHERE id=$1;`;
+  const params = [id];
+  return db.query(sql, params).then((data) => data.rows[0] || null);
+};
+
 module.exports = {
+  getCurrencyByCurrencyId,
   getAllCurrencies,
   getCurrencyByCountryCode,
 };
