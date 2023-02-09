@@ -60,6 +60,7 @@ router.get("/totals_per_day", (req, res) => {
 });
 
 router.get("/budget_spent", (req, res) => {
+  console.log('budget_spent');
   const userId = req.session.user;
   EQueries.getBudgetPercentage(userId)
   .then((totals) => {
