@@ -25,6 +25,7 @@ CREATE TABLE users (
 CREATE TABLE categories (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL,
+  is_deleted BOOLEAN DEFAULT false,
   name TEXT NOT NULL
 );
 
