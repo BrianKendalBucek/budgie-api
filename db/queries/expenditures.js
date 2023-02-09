@@ -56,8 +56,10 @@ const getTotalPerDay = (userId) => {
   date_paid,
   TO_CHAR(date_paid :: DATE, 'yyyy/mm/dd') as date_paid_nice
   FROM expenditures
-  WHERE user_id = $1
-  GROUP BY date_paid;`;
+  WHERE user_id = $1 AND 
+  EXTRACT(MONTH FROM date_paid) = EXTRACT(MONTH FROM NOW())
+  GROUP BY date_paid
+  ORDER BY date_paid;`;
   const params = [userId];
   return db.query(sql, params).then((data) => data.rows);
 }; 
