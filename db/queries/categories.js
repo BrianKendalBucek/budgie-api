@@ -36,11 +36,18 @@ const getTotalPerCategory = (userId) => {
  return db.query(sql, params).then((data) => data.rows || null);
 };
 
+const softDeleteCategory = (categoryId) => {
+  const sql = `UPDATE categories SET is_deleted = true WHERE id=$1;`;
+  const params = [categoryId];
+  return db.query(sql, params);
+};
+
 module.exports = {
   getTotalPerCategory,
   getAllCategories,
   getAllCategoriesByUser,
   deleteCategoryById,
   addCategory,
-  getTotalPerCategory
+  getTotalPerCategory,
+  softDeleteCategory
 };
