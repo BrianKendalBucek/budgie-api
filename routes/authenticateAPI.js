@@ -8,6 +8,7 @@ router.use("/", async (req, res, next) => {
   // continue to next api request
   console.log("all api routes go through ME!!!!!!");
 
+
   if (!req.session.user) {
     res.status(401).json("Not logged in");
     return;

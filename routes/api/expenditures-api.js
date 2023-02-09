@@ -5,24 +5,8 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 const EQueries = require("../../db/queries/expenditures");
-const userQueries = require("../../db/queries/users");
-const currencyQueries = require("../../db/queries/currency");
 const express = require("express");
 const router = express.Router();
-
-const getExchangeRateBase = (userId, currencyPaidId) => {
-  userQueries.getUserById(userId)
-    .then((user)=>{
-      const usd_to_user = user.currency_rate_to_usd;
-      console.log(usd_to_user);
-      currencyQueries.getCurrencyByCountryCode(45)
-        .then((currency) => {
-          //const usd_to_expense = currency.rate_to_usd;
-          console.log(currency);
-        })
-    })
-
-};
 
 router.get("/singleExpense", (req, res) => {
   const { expenseId } = req.body;
@@ -49,24 +33,18 @@ router.get("/", (req, res) => {
 // router.get("", (req, res) => {});
 
 router.post("/", (req, res) => {
-  userId = req.session.user;
-  getExchangeRateBase(userId, req.body.currencyId);
-  const params = {cost: '100', datePaid: '2023-02-02', categoryId: '7', notes: 'adsf', currencyId: 45};
+  const userId = req.session.user;
+  const params = ({
+    currencyId,
+    cost,
+    datePaid,
+    categoryId,
+    notes,
+  } = req.body);
 
-  //const params = ({
-    //currencyId,
-    //cost,
-   // exchangeRateBase,
-    //datePaid,
-    //categoryId,
-    //notes,
-  //} = req.body);
-  const arrayParams = Object.values(params);
-
-  //EQueries.createNewExpenditure([userId, ...arrayParams])
-    //TODO: investigate order of .status and .json
-  //  .then((inserted) => res.json(inserted).status(204))
-  //  .catch((err) => res.status(500).json({ error: err.message }));
+  EQueries.createNewExpenditure(params.newExpense.currencyId, params.newExpense.cost, params.newExpense.datePaid, params.newExpense.categoryId, params.newExpense.notes, userId)
+    .then((inserted) => res.json(inserted).status(204))
+    .catch((err) => res.status(500).json({ error: err.message }));
 
 });
 
