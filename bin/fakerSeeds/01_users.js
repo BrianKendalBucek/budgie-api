@@ -21,7 +21,7 @@ const users = async (random, sql, seedLength) => {
     const params = [
       ['Bryce', ' Haley', 'bh@mail.ca', '1234', 45, 1000],
       ['Gord', 'Letkeman', 'gl.mail.ca', '1234', 45, 5000],
-      ['Matt', 'Davis', 'md@mail.ca', '1234', 45, 2575],
+      ['Matt', 'Davis', 'md@mail.ca', '1234', 45, 2500],
       ['Brian', 'Bucek', 'bb@mail.com','1234', 45, 3000]
     ];
     for (let param of params) {
