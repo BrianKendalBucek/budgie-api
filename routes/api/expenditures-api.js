@@ -55,12 +55,12 @@ router.post("/", (req, res) => {
 router.get("/totals_per_day", (req, res) => {
   const userId = req.session.user;
   EQueries.getTotalPerDay(userId)
-  .then((totals) => {
-    res.json(totals)
-  })
-  .catch((err) => {
-    res.status(500).json({ error: err.message });
-  });
+    .then((totals) => {
+      res.json(totals);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
 });
 
 // TODO: think about response on delete
