@@ -50,6 +50,16 @@ router.delete("/delete", (req, res) => {
     });
 });
 
+router.put("/soft_delete", (req, res) => {
+  const { catId } = req.body;
+  categoryQueries
+    .softDeleteCategory(catId)
+    .then(() => res.status(204).json({}))
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
 router.post("/", (req, res) => {
   const { categoryName } = req.body;
   const userId = req.session.user;
