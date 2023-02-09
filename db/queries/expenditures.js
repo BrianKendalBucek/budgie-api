@@ -1,4 +1,5 @@
 const db = require("../connection");
+
 //#FrontendFreshmen
 
 //query to grab all expenses associated with a dude
