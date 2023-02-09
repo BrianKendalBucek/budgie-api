@@ -5,7 +5,7 @@ const getAllCategories = () => {
 };
 
 const getAllCategoriesByUser = (userId) => {
-  const sql = `SELECT * FROM categories WHERE user_id=$1;`;
+  const sql = `SELECT * FROM categories WHERE user_id=$1 AND is_deleted = false;`;
   const params = [userId];
   return db.query(sql, params).then((data) => data.rows);
 };
@@ -36,11 +36,18 @@ const getTotalPerCategory = (userId) => {
  return db.query(sql, params).then((data) => data.rows || null);
 };
 
+const softDeleteCategory = (categoryId) => {
+  const sql = `UPDATE categories SET is_deleted = true WHERE id=$1;`;
+  const params = [categoryId];
+  return db.query(sql, params);
+};
+
 module.exports = {
   getTotalPerCategory,
   getAllCategories,
   getAllCategoriesByUser,
   deleteCategoryById,
   addCategory,
-  getTotalPerCategory
+  getTotalPerCategory,
+  softDeleteCategory
 };

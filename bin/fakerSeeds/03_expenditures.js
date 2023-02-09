@@ -6,7 +6,6 @@ const moment = require('moment');
 const expenditures = async (random, sql, seedLength) => {
   const currencyLength = createCurrencySeed().length;
   const rates = createCurrencySeed();
-  console.log(rates);
   // need to be referenced in route based on user currency
   const cadRate = rates[44].rateToUsd;
   if (random) {
