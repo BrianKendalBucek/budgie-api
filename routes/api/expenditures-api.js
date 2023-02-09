@@ -8,8 +8,6 @@ const EQueries = require("../../db/queries/expenditures");
 const express = require("express");
 const router = express.Router();
 
-// const expendituresByIdQuery = require
-
 router.get("/singleExpense", (req, res) => {
   const { expenseId } = req.body;
   EQueries.getOneExpenditureById(expenseId)
@@ -35,21 +33,19 @@ router.get("/", (req, res) => {
 // router.get("", (req, res) => {});
 
 router.post("/", (req, res) => {
+  const userId = req.session.user;
   const params = ({
     currencyId,
     cost,
-    exchangeRateBase,
     datePaid,
     categoryId,
     notes,
   } = req.body);
-  userId = req.session.user;
-  const arrayParams = Object.values(params);
 
-  EQueries.createNewExpenditure([userId, ...arrayParams])
-    //TODO: investigate order of .status and .json
+  EQueries.createNewExpenditure(params.newExpense.currencyId, params.newExpense.cost, params.newExpense.datePaid, params.newExpense.categoryId, params.newExpense.notes, userId)
     .then((inserted) => res.json(inserted).status(204))
     .catch((err) => res.status(500).json({ error: err.message }));
+
 });
 
 router.get("/totals_per_day", (req, res) => {
