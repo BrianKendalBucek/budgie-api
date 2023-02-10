@@ -40,6 +40,7 @@ const expenditures = async (random, sql, seedLength) => {
     [4, 76, 152.7, 1.030769, faker.date.recent(), 11, "tequila"],
     [4, 202, 970.5, 1.030769, faker.date.recent(), 11, "sunscreen"],
     [4, 142, 0.5, 1138.97871, faker.date.recent(), 11, "fruit plate"],
+    [4, 76, 2000, 1.030769, faker.date.recent(), 11, ""]
   ]
 
   //Make realistic demo data for 'matt' user:
