@@ -24,6 +24,7 @@ const getUserById = (id) => {
   u.first_name,
   u.last_name,
   u.monthly_budget,
+  c.id AS currency_id,
   c.name AS currency_name,
   c.code AS currency_code,
   c.rate_to_usd AS currency_rate_to_usd

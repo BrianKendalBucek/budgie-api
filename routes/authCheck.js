@@ -10,7 +10,7 @@ router.get("/auth", async (req, res) => {
   } else {
     const id = req.session.user;
     try {
-      const user = await UQuery.userLessPassword(id);
+      const user = await UQuery.getUserById(id);
       res.status(202).json(user);
       return;
     } catch (error) {

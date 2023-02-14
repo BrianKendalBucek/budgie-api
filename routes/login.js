@@ -20,10 +20,10 @@ router.post("/login", async (req, res) => {
         if (password === user.password) {
           req.session.user = user.id;
           // success
+          const setUser = await UQuery.getUserById(user.id);
           res.status(202).json({
             validated: true,
-            firstName: user.first_name,
-            lastName: user.last_name,
+            user: setUser,
           });
         } else {
           // wrong password
