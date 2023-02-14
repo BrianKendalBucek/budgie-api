@@ -27,7 +27,6 @@ router.get("/", (req, res) => {
 router.put("/", (req, res) => {
   const userId = req.session.user;
   const { currencyId } = req.body;
-  console.log(currencyId);
   userQuery
     .updateUserCurrency(userId, currencyId)
     .then((updatedUser) => {
