@@ -27,10 +27,11 @@ router.get("/", (req, res) => {
 router.put("/", (req, res) => {
   const userId = req.session.user;
   const { currencyId } = req.body;
+  console.log(currencyId);
   userQuery
     .updateUserCurrency(currencyId, userId)
-    .then((user) => {
-      res.json({ ...user });
+    .then((updatedUser) => {
+      res.json(updatedUser);
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
