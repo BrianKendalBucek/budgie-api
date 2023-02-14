@@ -24,4 +24,18 @@ router.get("/", (req, res) => {
     });
 });
 
+router.put("/", (req, res) => {
+  const userId = req.session.user;
+  const { currencyId } = req.body;
+  userQuery
+    .updateUserCurrency(currencyId, userId)
+    .then((user) => {
+      res.json({ ...user });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+      console.log(err);
+    });
+});
+
 module.exports = router;
