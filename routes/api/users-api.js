@@ -29,7 +29,7 @@ router.put("/", (req, res) => {
   const { currencyId } = req.body;
   console.log(currencyId);
   userQuery
-    .updateUserCurrency(currencyId, userId)
+    .updateUserCurrency(userId, currencyId)
     .then((updatedUser) => {
       res.json(updatedUser);
     })
