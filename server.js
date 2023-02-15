@@ -4,12 +4,10 @@ const createError = require("http-errors");
 const path = require("path");
 const logger = require("morgan");
 const cors = require("cors");
-// const cookieSession = require("cookie-session");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const store = new session.MemoryStore();
 const PORT = process.env.PORT || 8888;
-// const KEY = process.env.KEY || "a really bad key";
 
 const indexRouter = require("./routes/index");
 // api routes go through simple auth
@@ -51,27 +49,12 @@ app.use(
       secret: "some secret",
       keys: ["This", "is", "a", "test"],
       sameSite: "lax",
-      // maxAge: 24 * 60 * 60 * 1000,
     },
     saveUninitialized: false,
     resave: false,
     store,
   })
 );
-
-/* 
-KEEP THIS FOR REFERENCE
-app.use(
-  cookieSession({
-    name: "session",
-    secret: "some secret",
-    sameSite: "lax",
-    keys: ["This", "is", "a", "test"],
-    // maxAge: 24 * 60 * 60 * 1000,
-    secure: false,
-  })
-);
- */
 
 //  logging function for every request to test sessions
 app.use("*", (req, res, next) => {
@@ -92,7 +75,7 @@ app.use("/", indexRouter);
 // send all api routes through auth
 app.use("/api", authAPIRouter);
 
-// specifically for login/logout
+// specifically for login/logout/auth
 app.use("/", loginRouter);
 app.use("/", authCheckRouter);
 

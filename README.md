@@ -23,6 +23,14 @@
 
 ### Usage and Routes
 
+#### Login Logout and Auth
+
+- POST `/login` with proper user and password that are established in the DB and a cookie will set and server sessionID will be set that matches that cookie
+- POST `/logout` cookie is cleared and session is destroyed
+- GET `/auth` checks to see if client cookie matches server session
+  - this is set up as a external on demand route to allow clients to "check" a user and have specific data returned
+- Internal authenticateAPI route will protect all routes that begin with /api, by checking first for server session then if the user exists in the DB
+
 #### Users
 
 - GET `/api/users` returns all relevant info for logged in user
