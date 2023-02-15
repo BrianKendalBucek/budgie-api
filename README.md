@@ -30,8 +30,10 @@
 #### Categories
 
 - GET `/api/categories` returns all categories
-- GET `http://localhost:3002/api/categories/get_categories_by_id/` returns categories for a specific user
-- DELETE `/api/categories/delete` deletes category by id
+- GET `/api/categories/get_categories_by_id/` returns categories for a specific user
+- GET `/api/categories/total_per_category` returns the sum of expenses in each category for a user
+- PUT `/api/categories/soft_delete` preferred method for deleting
+- DELETE `/api/categories/delete` hard deletes category by id (avoid)
   - assumes user is already logged in as users should only be able to delete categories they own
   - payload from front end, needs to include catId
 - POST `/api/categories` adds a new category
