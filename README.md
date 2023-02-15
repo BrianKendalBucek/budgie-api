@@ -9,7 +9,7 @@
 - run `npm install`
 - make a `cp` of the `.env.example` file as `.env` and fill out the variables with your local variables
 - run `npm run db:reset` to reset the database
-- any issues with this, talk to Matt :)
+  - follow the command line prompts to chose whether you would like to reset the schema, random seeds or "nice" preformatted seeds
 
 ### KNOWN SEEDING BUG
 
@@ -21,7 +21,7 @@
 
 ![ERD Diagram](https://github.com/BrianKendalBucek/budgie-api/blob/main/public/docs/ERD.png?raw=true)
 
-### Usage and Routes (So far)
+### Usage and Routes
 
 #### Users
 
@@ -52,7 +52,10 @@
 - GET `/api/expenditures` get all expenditures by user ID
   - returns an array of users expenses
 - GET `/api/expenditures/singleExpense` get one single Expense by id, payload must include expenseId
-- POST `/api/expenditures` with payload
+- GET `/api/expenditures/totals_per_day` get total expenses for each calender day
+- GET `/api/expenditures/budget_spent` returns the percentage of users budget spent
+- GET `/api/expenditures/totals_per_month` returns total per month!
+- POST `/api/expenditures` with payload example
 
 ```
 {
