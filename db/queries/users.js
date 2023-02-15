@@ -74,7 +74,14 @@ const updateUserCurrency = (id, currency_id) => {
 
   return db.query(sql, params).then((data) => data.rows[0] || null);
 };
+const updateUserBudget = (id, budget) => {
+  const sql = `UPDATE users SET monthly_budget=$1 WHERE id=$2 RETURNING*;`;
+  const params = [budget, id];
+
+  return db.query(sql, params).then((data) => data.rows[0] || null);
+};
 module.exports = {
+  updateUserBudget,
   userLessPassword,
   updateUserCurrency,
   createNewUser,
