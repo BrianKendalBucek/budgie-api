@@ -9,7 +9,7 @@
 - run `npm install`
 - make a `cp` of the `.env.example` file as `.env` and fill out the variables with your local variables
 - run `npm run db:reset` to reset the database
-- any issues with this, talk to Matt :)
+  - follow the command line prompts to chose whether you would like to reset the schema, random seeds or "nice" preformatted seeds
 
 ### KNOWN SEEDING BUG
 
@@ -21,7 +21,15 @@
 
 ![ERD Diagram](https://github.com/BrianKendalBucek/budgie-api/blob/main/public/docs/ERD.png?raw=true)
 
-### Usage and Routes (So far)
+### Usage and Routes
+
+#### Login Logout and Auth
+
+- POST `/login` with proper user and password that are established in the DB and a cookie will set and server sessionID will be set that matches that cookie
+- POST `/logout` cookie is cleared and session is destroyed
+- GET `/auth` checks to see if client cookie matches server session
+  - this is set up as a external on demand route to allow clients to "check" a user and have specific data returned
+- Internal authenticateAPI route will protect all routes that begin with /api, by checking first for server session then if the user exists in the DB
 
 #### Users
 
@@ -30,8 +38,10 @@
 #### Categories
 
 - GET `/api/categories` returns all categories
-- GET `http://localhost:3002/api/categories/get_categories_by_id/` returns categories for a specific user
-- DELETE `/api/categories/delete` deletes category by id
+- GET `/api/categories/get_categories_by_id/` returns categories for a specific user
+- GET `/api/categories/total_per_category` returns the sum of expenses in each category for a user
+- PUT `/api/categories/soft_delete` preferred method for deleting
+- DELETE `/api/categories/delete` hard deletes category by id (avoid)
   - assumes user is already logged in as users should only be able to delete categories they own
   - payload from front end, needs to include catId
 - POST `/api/categories` adds a new category
@@ -50,7 +60,10 @@
 - GET `/api/expenditures` get all expenditures by user ID
   - returns an array of users expenses
 - GET `/api/expenditures/singleExpense` get one single Expense by id, payload must include expenseId
-- POST `/api/expenditures` with payload
+- GET `/api/expenditures/totals_per_day` get total expenses for each calender day
+- GET `/api/expenditures/budget_spent` returns the percentage of users budget spent
+- GET `/api/expenditures/totals_per_month` returns total per month!
+- POST `/api/expenditures` with payload example
 
 ```
 {

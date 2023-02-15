@@ -5,9 +5,6 @@ const randomNumBetween = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
-// loop through country codes and create an array of [{name, code, rate_to_usd}]
-// need to loop through the usd json and match the country code too pull the rate
-
 const createCurrencySeed = () => {
   const output = [];
   const toRateObj = JSON.parse(
