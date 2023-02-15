@@ -35,7 +35,6 @@ router.post("/login", async (req, res) => {
       res.status(403).json({ validated: false, msg: "Invalid Input" });
     }
   } catch (error) {
-    console.log(error);
     res.status(500);
   }
 });

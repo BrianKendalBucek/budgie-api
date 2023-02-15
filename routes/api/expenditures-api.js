@@ -26,26 +26,20 @@ router.get("/", (req, res) => {
     });
 });
 
-// set up route to get a single expense
-// route to add
-// route to delete
-// route to edit
-// router.get("", (req, res) => {});
-
 router.post("/", (req, res) => {
   const userId = req.session.user;
-  const params = ({
-    currencyId,
-    cost,
-    datePaid,
-    categoryId,
-    notes,
-  } = req.body);
+  const params = ({ currencyId, cost, datePaid, categoryId, notes } = req.body);
 
-  EQueries.createNewExpenditure(params.newExpense.currencyId, params.newExpense.cost, params.newExpense.datePaid, params.newExpense.categoryId, params.newExpense.notes, userId)
+  EQueries.createNewExpenditure(
+    params.newExpense.currencyId,
+    params.newExpense.cost,
+    params.newExpense.datePaid,
+    params.newExpense.categoryId,
+    params.newExpense.notes,
+    userId
+  )
     .then((inserted) => res.json(inserted).status(204))
     .catch((err) => res.status(500).json({ error: err.message }));
-
 });
 
 router.get("/totals_per_day", (req, res) => {
@@ -62,12 +56,12 @@ router.get("/totals_per_day", (req, res) => {
 router.get("/budget_spent", (req, res) => {
   const userId = req.session.user;
   EQueries.getBudgetPercentage(userId)
-  .then((totals) => {
-    res.json(totals);
-  })
-  .catch((err) => {
-    res.status(500).json({ error: err.message });
-  });
+    .then((totals) => {
+      res.json(totals);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
 });
 
 router.get("/totals_per_month", (req, res) => {

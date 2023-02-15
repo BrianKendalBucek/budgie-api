@@ -34,9 +34,6 @@ const runSeedFiles = async (random, seedLength = 10) => {
 };
 
 // control flow
-// Run schema?
-// Run seeds?
-// maybe ask how many times?
 
 const runResetDB = async () => {
   db.on("end", () => "Disconnected");
