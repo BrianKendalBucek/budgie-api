@@ -38,4 +38,11 @@ router.put("/", (req, res) => {
     });
 });
 
+router.put("/budget", (req, res) => {
+  const userId = req.session.user;
+  const { budget } = req.body;
+  console.log(budget);
+  res.status(200);
+});
+
 module.exports = router;
