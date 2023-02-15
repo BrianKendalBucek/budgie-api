@@ -30,7 +30,7 @@ router.put("/", (req, res) => {
   userQuery
     .updateUserCurrency(userId, currencyId)
     .then((updatedUser) => {
-      res.json(updatedUser);
+      res.status(200).json(updatedUser);
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
@@ -41,8 +41,14 @@ router.put("/", (req, res) => {
 router.put("/budget", (req, res) => {
   const userId = req.session.user;
   const { budget } = req.body;
-  console.log(budget);
-  res.status(200);
+  userQuery
+    .updateUserBudget(userId, budget)
+    .then((updatedUser) => {
+      res.status(200).json(updatedUser);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
 });
 
 module.exports = router;
