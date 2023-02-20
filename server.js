@@ -13,7 +13,6 @@ const PORT = process.env.PORT || 8888;
 
 const indexRouter = require("./routes/index");
 // api routes go through simple auth
-const convertRoute = require("./routes/convert");
 const apiCurrencyRoute = require("./routes/api/currency-api");
 const apiExpendituresRoute = require("./routes/api/expenditures-api");
 const apiUsersRoute = require("./routes/api/users-api");
@@ -25,6 +24,7 @@ const loginRouter = require("./routes/login");
 
 const authAPIRouter = require("./routes/authenticateAPI");
 const authCheckRouter = require("./routes/authCheck");
+const updateRates = require("./lib/convertUpdate");
 
 // view engine is REACT :)
 const app = express();
@@ -86,8 +86,9 @@ app.use("*", (req, res, next) => {
   next();
 });
 
-cron.schedule("1-5 * * * *", () => {
-  console.log("running every minute to 1 from 5");
+cron.schedule("* * * * *", () => {
+  console.log("running every min to update");
+  updateRates();
 });
 
 // basic for dev purposes
@@ -103,14 +104,10 @@ app.use("/", authCheckRouter);
 // signup
 
 // api routing
-// app.use("/api", convertRouter);
 app.use("/api/currency", apiCurrencyRoute);
 app.use("/api/expenditures", apiExpendituresRoute);
 app.use("/api/users", apiUsersRoute);
 app.use("/api/categories", apiCategoriesRoute);
-
-// to refresh rate data
-app.use("/convert", convertRoute);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
