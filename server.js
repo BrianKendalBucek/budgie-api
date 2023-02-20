@@ -4,7 +4,7 @@ const createError = require("http-errors");
 const path = require("path");
 const logger = require("morgan");
 const cors = require("cors");
-// const cookieSession = require("cookie-session");
+const cron = require("node-cron");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const store = new session.MemoryStore();
@@ -84,6 +84,10 @@ app.use("*", (req, res, next) => {
     req.sessionID
   );
   next();
+});
+
+cron.schedule("1-5 * * * *", () => {
+  console.log("running every minute to 1 from 5");
 });
 
 // basic for dev purposes
