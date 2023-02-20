@@ -86,8 +86,8 @@ app.use("*", (req, res, next) => {
   next();
 });
 
-cron.schedule("* * * * *", () => {
-  console.log("running every min to update");
+cron.schedule("0 0 * * *", () => {
+  // run every day
   updateRates();
 });
 
