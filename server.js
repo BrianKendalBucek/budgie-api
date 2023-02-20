@@ -1,4 +1,6 @@
 require("dotenv").config();
+const appTitle = "Budgie-api dev";
+const debug = require("debug")("budgie_api:server");
 const express = require("express");
 const createError = require("http-errors");
 const path = require("path");
@@ -88,6 +90,7 @@ app.use("*", (req, res, next) => {
 
 cron.schedule("0 0 * * *", () => {
   // run every day
+  debug(`CRON TASK schedule for everyday to update rates %o`, `UpdateRates()`);
   updateRates();
 });
 
@@ -109,6 +112,7 @@ app.use("/api/expenditures", apiExpendituresRoute);
 app.use("/api/users", apiUsersRoute);
 app.use("/api/categories", apiCategoriesRoute);
 
+debug(`Booting %o,`, appTitle);
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+  debug(`Server listening on port ${PORT}`);
 });

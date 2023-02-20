@@ -1,6 +1,6 @@
 {
   "proxy": "http://localhost:3002",
-  "name": "final_project",
+  "name": "budgie_api",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
