@@ -4,7 +4,6 @@ const UQuery = require("../db/queries/users");
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  console.log(email, password);
   try {
     const user = await UQuery.getUserByEmail(email.trim());
     if (!user) {
@@ -35,7 +34,7 @@ router.post("/login", async (req, res) => {
       res.status(403).json({ validated: false, msg: "Invalid Input" });
     }
   } catch (error) {
-    console.log(error);
+    debug(error);
     res.status(500);
   }
 });

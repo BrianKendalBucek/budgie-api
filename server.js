@@ -77,12 +77,12 @@ app.use(
 
 //  logging function for every request to test sessions
 app.use("*", (req, res, next) => {
-  console.log(
-    "IS THERE A COOKIE",
+  debug(
+    `%o IS THERE A COOKIE`,
     req.cookies,
-    "LOGGED IN AS",
+    `%o LOGGED IN AS`,
     req.session.user,
-    "SESSION ID",
+    `%o SESSION ID`,
     req.sessionID
   );
   next();
@@ -112,7 +112,15 @@ app.use("/api/expenditures", apiExpendituresRoute);
 app.use("/api/users", apiUsersRoute);
 app.use("/api/categories", apiCategoriesRoute);
 
+//
+app.use((err, req, res, next) => {
+  res
+    .status(err.status || 500)
+    .send({ message: err.message, stack: err.stack });
+});
+
 debug(`Booting %o,`, appTitle);
 app.listen(PORT, () => {
   debug(`Server listening on port ${PORT}`);
+  console.log(`Server listening on port ${PORT}`);
 });

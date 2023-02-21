@@ -67,5 +67,15 @@ Authorization: Basic base64-user-password
 "password":"1GHXjdeABb4FOcp"
 }
 
+### 
+POST http://localhost:3002/login HTTP/1.1
+Content-Type: application/json
+Authorization: Basic base64-user-password
+
+{
+"email": "md@mail.ca",
+"password":"1234"
+}
+
 ###
 POST http://localhost:3002/logout HTTP/1.1
