@@ -112,11 +112,12 @@ app.use("/api/expenditures", apiExpendituresRoute);
 app.use("/api/users", apiUsersRoute);
 app.use("/api/categories", apiCategoriesRoute);
 
-//
+// error handling
 app.use((err, req, res, next) => {
-  res
-    .status(err.status || 500)
-    .send({ message: err.message, stack: err.stack });
+  res.status(err.status || 500).send({
+    message: err.message,
+    stack: process.env.NODE_ENV === "development" ? err.stack : {},
+  });
 });
 
 debug(`Booting %o,`, appTitle);

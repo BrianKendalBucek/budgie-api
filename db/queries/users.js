@@ -42,14 +42,22 @@ const getUserByEmail = (email) => {
 };
 
 const createNewUser = (
+  email,
+  password,
   first_name,
   last_name,
-  password,
   currency_id,
   monthly_budget
 ) => {
-  const sql = `INSERT INTO users(first_name, last_name, email, password, currency_id, monthly_budget) VALUES ($1, $2, $3, $4, $5, $6) RETURNING*;`;
-  const params = [first_name, last_name, password, currency_id, monthly_budget];
+  const sql = `INSERT INTO users(email, password, first_name, last_name, currency_id, monthly_budget) VALUES ($1, $2, $3, $4, $5, $6) RETURNING*;`;
+  const params = [
+    email,
+    password,
+    first_name,
+    last_name,
+    currency_id,
+    monthly_budget,
+  ];
 
   return db.query(sql, params).then((data) => data.rows[0]);
 };

@@ -5,6 +5,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "debug": "DEBUG=budgie_api:* npm start",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
     "db:reset": "node ./bin/resetdb.js"
